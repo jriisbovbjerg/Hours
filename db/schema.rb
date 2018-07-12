@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224115957) do
+ActiveRecord::Schema.define(version: 20180712092505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,15 +80,15 @@ ActiveRecord::Schema.define(version: 20150224115957) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "hours", force: :cascade do |t|
-    t.integer  "project_id",                  null: false
-    t.integer  "category_id",                 null: false
-    t.integer  "user_id",                     null: false
-    t.integer  "value",                       null: false
-    t.date     "date",                        null: false
+    t.integer  "project_id",                                           null: false
+    t.integer  "category_id",                                          null: false
+    t.integer  "user_id",                                              null: false
+    t.decimal  "value",       precision: 10, scale: 2,                 null: false
+    t.date     "date",                                                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.boolean  "billed",      default: false
+    t.boolean  "billed",                               default: false
   end
 
   add_index "hours", ["billed"], name: "index_hours_on_billed", using: :btree
