@@ -23,7 +23,8 @@ class Hour < Entry
   has_many :tags, through: :taggings
 
   validates :category, presence: true
-
+  validates :value , format: { with: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]|\A\d{1,2}(?!\d)/, message: "Integer or hour format only ex. 10 or 10:20" }
+  
   accepts_nested_attributes_for :taggings
 
   scope :by_last_created_at, -> { order("created_at DESC") }
@@ -34,6 +35,7 @@ class Hour < Entry
   }
 
   before_save :set_tags_from_description
+  before_save :value
 
   def tag_list
     tags.map(&:name).join(", ")
@@ -41,6 +43,19 @@ class Hour < Entry
 
   def self.query(params, includes = nil)
     EntryQuery.new(self.includes(includes).by_date, params, "hours").filter
+  end
+
+  def value=(value)
+    entry = value
+    if entry.length < 3
+      entry = entry.to_f
+    else
+      hours = entry[/^\d{1,2}(?!\d)/]
+      minutes = entry[/([^:]+)$/]
+      decimal = (minutes.to_f / 60)
+      entry = (hours.to_f + decimal).round(2)
+    end
+    write_attribute(:value, entry)
   end
 
   private
