@@ -3,10 +3,6 @@ class Entry < ActiveRecord::Base
 
   include Twitter::Extractor
 
-  validates :user, :project, :date, presence: true
-  validates :value, presence: true, numericality: { greater_than: 0,
-                                                    only_integer: false }
-
   audited allow_mass_assignment: true
 
   has_one :client, through: :project

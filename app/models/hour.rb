@@ -23,8 +23,9 @@ class Hour < Entry
   has_many :tags, through: :taggings
 
   validates :category, presence: true
-  validates :value , format: { with: /([0-1]?[0-9]|2[0-3]):[0-5][0-9]|\A\d{1,2}(?!\d)/, message: "Integer or hour format only ex. 10 or 10:20" }
-  
+  validates :user, :project, :date, :value, presence: true
+  validates :value, :numericality => { :greater_than => 0 }
+
   accepts_nested_attributes_for :taggings
 
   scope :by_last_created_at, -> { order("created_at DESC") }
@@ -47,14 +48,15 @@ class Hour < Entry
 
   def value=(value)
     entry = value
-    if entry.length < 3
-      entry = entry.to_f
-    else
-      hours = entry[/^\d{1,2}(?!\d)/]
-      minutes = entry[/([^:]+)$/]
-      decimal = (minutes.to_f / 60)
-      entry = (hours.to_f + decimal).round(2)
+    
+    if entry =~ /(^\d+):([0-5][0-9]$)/i
+      hours = $1
+      minutes = $2
+      entry = (hours.to_f + (minutes.to_f / 60)).round(2)
+    elsif entry =~ /^[1-9][0-9]*$/i
+      entry = value.to_f
     end
+
     write_attribute(:value, entry)
   end
 
