@@ -10,6 +10,9 @@
 #  billed     :boolean          default("false")
 #  created_at :datetime
 #  updated_at :datetime
+#  from_adress :string,         null => false)
+#  to_adress   :string,         null => false)
+#  taxfree     :boolean         default("false"))
 #
 
 class Mileage < Entry

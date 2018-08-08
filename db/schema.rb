@@ -105,8 +105,9 @@ ActiveRecord::Schema.define(version: 20180808185547) do
     t.boolean  "billed",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "from_adress"
-    t.string   "to_adress"
+    t.string   "from_adress",                 null: false
+    t.string   "to_adress",                   null: false
+    t.boolean  "taxfree",     default: false
   end
 
   add_index "mileages", ["billed"], name: "index_mileages_on_billed", using: :btree
