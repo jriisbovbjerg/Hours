@@ -3,8 +3,9 @@
     %th= t("entries.index.date")
     %th= t("entries.index.project")
     %th.center= t("entries.index.mileages")
-    %th.hide-for-mobile
-    %th.hide-for-mobile
+    %th.hide-for-mobile= "From"
+    %th.hide-for-mobile= "To"
+    %th.hide-for-mobile= "Taxfree"    
     - if @user == current_user
       %th.right
     %th.right.hide-for-mobile
@@ -17,8 +18,9 @@
           = I18n.l (entry.date)
         %td.project= link_to entry.project.name, entry.project
         %td.hours.center= entry.value
-        %td.category.hide-for-mobile
-        %td.description.hide-for-mobile
+        %td.category.hide-for-mobile= entry.from_adress
+        %td.description.hide-for-mobile= entry.to_adress
+        %td.taxfree.hide-for-mobile= show_check_icon(entry.taxfree)
         - if @user == current_user
           %td.actions.right
             = link_to t('entries.index.edit'), edit_mileage_path(entry)

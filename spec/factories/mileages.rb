@@ -18,6 +18,8 @@ FactoryGirl.define do
     value 1
     date "2014-02-26 22:06:47"
     user
+    from_adress "home 1"
+    to_adress "work 1"
 
     factory :mileage_with_client do
       project { create(:project, client: create(:client)) }

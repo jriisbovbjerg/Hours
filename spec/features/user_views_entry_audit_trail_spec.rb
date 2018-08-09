@@ -22,7 +22,7 @@ feature "User views Entry Audit Trail" do
 
     visit hour_audits_url(hours_entry, subdomain: subdomain)
     last_change = page.find(".audit:last-child")
-    expect(last_change.find(".changes")).to have_content changed_value(100, 200)
+    expect(last_change.find(".changes")).to have_content changed_value(100.0, 200.0)
   end
 
   scenario "links to mileages audit path" do

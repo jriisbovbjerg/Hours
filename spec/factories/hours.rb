@@ -6,7 +6,7 @@
 #  project_id  :integer          not null
 #  category_id :integer          not null
 #  user_id     :integer          not null
-#  value       :integer          not null
+#  value       :decimal   precision: 10, scale: 2,                 not null
 #  date        :date             not null
 #  created_at  :datetime
 #  updated_at  :datetime

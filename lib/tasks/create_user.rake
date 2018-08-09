@@ -21,6 +21,7 @@ def build_user
   print "email: "
   email = STDIN.gets.chomp   
   print "Password: "
+  require 'io/console'
   password = STDIN.noecho(&:gets).chomp
   puts
   User.new(first_name: first_name,

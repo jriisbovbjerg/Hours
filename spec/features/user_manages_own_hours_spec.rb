@@ -72,7 +72,7 @@ feature "User manages their own hours" do
 
     expect(page).to have_select("hour_project_id", selected: new_project.name)
     expect(page).to have_select("hour_category_id", selected: new_category.name)
-    expect(find_field("hour_value").value).to eq(new_value.to_s)
+    expect(find_field("hour_value").value).to eq(new_value.to_f.to_s)
     expect(find_field("hour_date").value).to eq(new_date.to_s)
     expect(find_field("hour_description").value).to eq(new_description)
   end

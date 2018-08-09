@@ -82,4 +82,12 @@ module ApplicationHelper
     Hour.includes(:category, :user, :project).
       where(project: project, billed: false)
   end
+
+  def show_check_icon(boolean_value)
+    if boolean_value then 
+      "✓"
+    else 
+      ""
+    end 
+  end
 end
