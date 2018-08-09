@@ -34,7 +34,7 @@ class MileagesController < EntriesController
 
   def entry_params
     params.require(:mileage).
-      permit(:project_id, :value, :date).
+      permit(:project_id, :value, :date, :from_adress, :to_adress, :taxfree).
       merge(date: parsed_date(:mileage))
   end
 end
