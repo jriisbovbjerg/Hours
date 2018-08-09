@@ -3,9 +3,9 @@
     %th= t("entries.index.date")
     %th= t("entries.index.project")
     %th.center= t("entries.index.mileages")
-    %th.hide-for-mobile= "From"
-    %th.hide-for-mobile= "To"
-    %th.hide-for-mobile= "Taxfree"    
+    %th.hide-for-mobile= t('entries.index.from_adress')
+    %th.hide-for-mobile= t('entries.index.to_adress')
+    %th.hide-for-mobile= t('entries.index.taxfree')    
     - if @user == current_user
       %th.right
     %th.right.hide-for-mobile
