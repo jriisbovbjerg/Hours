@@ -132,6 +132,11 @@ en:
       from_adress: From Adress
       to_adress: To Adress
       taxfree: Taxfree acc. 60 day rule
+      supplier: Supplier
+      description: Description
+      exhangerate: Exchangerate
+      currency: Currency
+      expense: Amount
   entry_activity_html:
     one: "%{user} spent one hour doing %{category} on %{project}"
     other: "%{user} spent %{count} hours doing %{category} on %{project}"

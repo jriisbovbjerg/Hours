@@ -15,6 +15,11 @@
               #mileages-tab.tab-content
                 %table.entries-table
                   = render partial: "application/mileages_entry_form", locals: { form_title: t("entries.index.new_mileages") }
+            %li.tab-header-and-content-right
+              %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
+              #expenses-tab.tab-content
+                %table.entries-table
+                  = render partial: "application/expenses_entry_form", locals: { form_title: t("entries.index.new_expenses") }
       %ul.project-list
         - localized_cache cache_keys_for_all(:projects, :categories) do
           - unless Project.any?
