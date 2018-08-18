@@ -24,15 +24,6 @@ feature "User registers time" do
 
       expect(page).to have_content (I18n.t("entry_created.hours"))
     end
-
-    # scenario "validates that hours are integers" do
-    #   within ".tab-header-and-content-left" do
-    #     fill_in_entry(hours: 0.5)
-    #     click_button (I18n.t("helpers.submit.create"))
-    #   end
-    #   expect(page).to have_content(
-    #     I18n.t("activerecord.attributes.hour.value") + " must be integer or hour format only ex. 10 or 10:20")
-    # end
   end
 
   context "with taggings" do

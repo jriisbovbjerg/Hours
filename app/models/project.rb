@@ -24,6 +24,7 @@ class Project < ActiveRecord::Base
   validates_with ClientBillableValidator
   has_many :hours
   has_many :mileages
+  has_many :expenses
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours

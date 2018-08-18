@@ -6,7 +6,7 @@ end
 resources :categories, only: [:index, :create, :edit, :update]
 resources :entries, only: [:index]
 
-resources :hours, :mileages, only: [:create, :destroy, :update, :edit, :patch]do
+resources :hours, :mileages, :expenses, only: [:create, :destroy, :update, :edit, :patch]do
   resources :audits, only: [:index]
 end
 

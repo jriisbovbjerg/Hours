@@ -1,4 +1,4 @@
-feature "Downloading enries" do
+feature "Downloading entries" do
   let(:subdomain) { generate(:subdomain) }
   let(:user) { build(:user) }
   let(:entry) { create(:entry, user: user) }

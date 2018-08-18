@@ -8,14 +8,17 @@ class EntriesController < ApplicationController
     @hours_entries = @user.hours.by_date.page(params[:hours_pages]).per(20)
     @mileages_entries = @user.mileages.by_date.page(
       params[:mileages_pages]).per(20)
+    @expenses_entries = @user.expenses.by_date.page(
+      params[:expenses_pages]).per(20)
 
     respond_to do |format|
-      format.html { @mileages_entries + @hours_entries }
+      format.html { @mileages_entries + @hours_entries + @expenses_entries}
       format.csv do
         send_csv(
           name: @user.name.gsub(/\s+/, "_"),
           hours_entries: @user.hours.by_date,
-          mileages_entries: @user.mileages.by_date)
+          mileages_entries: @user.mileages.by_date,
+          expenses_entries: @user.expenses.by_date)
       end
     end
   end

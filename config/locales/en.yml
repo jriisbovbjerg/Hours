@@ -58,6 +58,8 @@ en:
         value: "Hours"
       mileage:
         value: "Mileages"
+      expense:
+        value: "Expenses"
     errors:
       models:
         account:
@@ -132,15 +134,23 @@ en:
       from_adress: From Adress
       to_adress: To Adress
       taxfree: Taxfree acc. 60 day rule
+      supplier: Supplier
+      description: Description
+      exhangerate: Exchangerate
+      currency: Currency
+      expense: Amount
+      expenses: Expenses
   entry_activity_html:
     one: "%{user} spent one hour doing %{category} on %{project}"
     other: "%{user} spent %{count} hours doing %{category} on %{project}"
   entry_created:
     hours: Hours entry successfully created
     mileages: Kilometers entry successfully created
+    expenses: Expense entry successfully created
   entry_deleted:
     hours: Hours Entry successfully deleted
     mileages: Kilometers Entry successfully deleted
+    expensess: Expense Entry successfully deleted
   entry_failed: Something went wrong saving your entry
   entry_saved: Entry successfully saved
   helpful:
@@ -218,6 +228,10 @@ en:
       billable: Billable
       billed: Billed
       description: Description
+      supplier: Supplier
+      exchangerate: Exchangerate
+      currency: Currency
+      expenses: Expenses
     filters: filters
     hours_per_day: Hours per day
     monthly: 1 month
