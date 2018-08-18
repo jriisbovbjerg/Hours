@@ -13,7 +13,7 @@ class EntriesController < ApplicationController
       format.html { @mileages_entries + @hours_entries }
       format.csv do
         send_csv(
-          name: @user.name,
+          name: @user.name.gsub(/\s+/, "_"),
           hours_entries: @user.hours.by_date,
           mileages_entries: @user.mileages.by_date)
       end

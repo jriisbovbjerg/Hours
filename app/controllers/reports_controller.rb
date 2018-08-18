@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
       format.html
       format.csv do
         send_csv(
-          name: current_subdomain,
+          name: current_subdomain || "export",
           hours_entries: entries(Hour.query(params[:entry_filter])),
           mileages_entries: entries(Mileage.query(params[:entry_filter]))
         )
