@@ -1,7 +1,7 @@
 class Expense < Entry
   
   validates :user, :project, :date, :value, presence: true
-  validates :description, :currency, :exchangerate, presence: true
+  validates :description, :currency, :exchangerate, :supplier, presence: true
   validates :value, :numericality => { :greater_than => 0, only_integer: false }
   validates :exchangerate, :numericality => { :greater_than => 0, only_integer: false }
   

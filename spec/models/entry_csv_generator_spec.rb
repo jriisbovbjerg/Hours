@@ -5,19 +5,28 @@ describe EntryCSVGenerator do
   let(:second_entry) { build_stubbed(:hour) }
   let(:third_entry) { build_stubbed(:mileage) }
   let(:fourth_entry) { build_stubbed(:mileage) }
+  let(:fifth_entry) { build_stubbed(:expense) }
+  let(:sixth_entry) { build_stubbed(:expense) }
 
   let(:generator) do
     EntryCSVGenerator.new([first_entry, second_entry],
-                          [third_entry, fourth_entry])
+                          [third_entry, fourth_entry],
+                          [fifth_entry, sixth_entry])
   end
 
   it "generates csv" do
     csv = generator.generate
+    
     expect(csv).to include(
       "Date,User,Project,Category,Client,Hours,Billable,Billed,Description")
-    expect(csv.lines.count).to eq(10)
+    expect(csv).to include(
+      "Date,User,Project,Client,Kilometers,Billable,Billed")
+    expect(csv).to include(
+      "Date,User,Project,Category,Client,Hours,Billable,Billed,Description,Supplier,Currency,Exchangerate")
+    
+    expect(csv.lines.count).to eq(15)
     expect(csv.lines.second.split(",").count).to eq(1)
-    expect(csv.lines.last.split(",").count).to eq(7)
+    expect(csv.lines.last.split(",").count).to eq(12)
   end
 
   it "localizes the separator" do

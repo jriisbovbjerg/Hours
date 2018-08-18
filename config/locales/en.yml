@@ -58,6 +58,8 @@ en:
         value: "Hours"
       mileage:
         value: "Mileages"
+      expense:
+        value: "Expenses"
     errors:
       models:
         account:
@@ -144,9 +146,11 @@ en:
   entry_created:
     hours: Hours entry successfully created
     mileages: Kilometers entry successfully created
+    expenses: Expense entry successfully created
   entry_deleted:
     hours: Hours Entry successfully deleted
     mileages: Kilometers Entry successfully deleted
+    expensess: Expense Entry successfully deleted
   entry_failed: Something went wrong saving your entry
   entry_saved: Entry successfully saved
   helpful:
