@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808185547) do
+ActiveRecord::Schema.define(version: 20180809200814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,25 @@ ActiveRecord::Schema.define(version: 20180808185547) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "expenses", force: :cascade do |t|
+    t.integer  "project_id",                                            null: false
+    t.integer  "user_id",                                               null: false
+    t.decimal  "value",        precision: 10, scale: 2,                 null: false
+    t.string   "currency",                              default: "DKK", null: false
+    t.decimal  "exchangerate", precision: 10, scale: 2, default: 1.0,   null: false
+    t.string   "supplier",                                              null: false
+    t.string   "description",                                           null: false
+    t.date     "date",                                                  null: false
+    t.boolean  "billed",                                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "expenses", ["billed"], name: "index_expenses_on_billed", using: :btree
+  add_index "expenses", ["date"], name: "index_expenses_on_date", using: :btree
+  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id", using: :btree
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "hours", force: :cascade do |t|
     t.integer  "project_id",                                           null: false

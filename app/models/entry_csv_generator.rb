@@ -1,13 +1,14 @@
 require "csv"
 
 class EntryCSVGenerator
-  def self.generate(hours_entries, mileages_entries)
-    new(hours_entries, mileages_entries).generate
+  def self.generate(hours_entries, mileages_entries, expenses_entries)
+    new(hours_entries, mileages_entries, expenses_entries).generate
   end
 
-  def initialize(hours_entries, mileages_entries)
+  def initialize(hours_entries, mileages_entries, expenses_entries)
     @hours_report = Report.new(hours_entries)
     @mileages_report = Report.new(mileages_entries)
+    @expenses_report = Report.new(expenses_entries)
   end
 
   def generate
@@ -18,6 +19,9 @@ class EntryCSVGenerator
       csv << []
       csv << [I18n.translate("report.headers.mileages")]
       fill_fields("mileages", csv)
+      csv << []
+      csv << [I18n.translate("report.headers.expenses")]
+      fill_fields("expenses", csv)
     end
   end
 
@@ -34,6 +38,11 @@ class EntryCSVGenerator
     fields.push [entry.category] if entry_type == "hours"
     fields.push [entry.client, entry.value, entry.billable, entry.billed]
     fields.push [entry.description] if entry_type == "hours"
+    fields.push [entry.supplier] if entry_type == "expenses"
+    fields.push [entry.description] if entry_type == "expenses"
+    fields.push [entry.supplier] if entry_type == "expenses"
+    fields.push [entry.currency] if entry_type == "expenses"
+    fields.push [entry.exchangerate] if entry_type == "expenses"
     fields.flatten
   end
 

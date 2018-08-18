@@ -18,3 +18,9 @@
             %table.entries-table
               = render 'mileages_table'
             = paginate @mileages_entries, param_name: :mileages_pages
+        %li.tab-header-and-content-right
+          %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
+          #expenses-tab.tab-content
+            %table.entries-table
+              = render 'expenses_table'
+            = paginate @expenses_entries, param_name: :expenses_pages

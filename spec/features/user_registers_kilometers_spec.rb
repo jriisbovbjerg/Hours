@@ -15,7 +15,7 @@ feature "User registers kilometers" do
 
   context "with valid data" do
     scenario "full data" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content-center" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: 20
         fill_in "mileage_date", with: "17/02/2015"
@@ -30,7 +30,7 @@ feature "User registers kilometers" do
 
   context "with invalid data" do
     scenario "doubles" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content-center" do
         select conversations.name, from: I18n.t("entries.index.project")
         fill_in "mileage_value", with: 0.5
         fill_in "mileage_date", with: "01/02/2014"
@@ -42,7 +42,7 @@ feature "User registers kilometers" do
     end
 
     scenario "blank text" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content-center" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: ""
         fill_in "mileage_date", with: "17/02/2015"
@@ -55,7 +55,7 @@ feature "User registers kilometers" do
     end
 
     scenario "missing adress" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content-center" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: 20
         fill_in "mileage_date", with: "17/02/2015"

@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   belongs_to :organization, class_name: "Account", inverse_of: :users
   has_many :hours
   has_many :mileages
+  has_many :expenses
   has_many :projects, -> { uniq }, through: :hours
 
   scope :by_name, -> { order("lower(last_name)") }
