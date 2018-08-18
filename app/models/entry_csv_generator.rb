@@ -39,6 +39,10 @@ class EntryCSVGenerator
     fields.push [entry.client, entry.value, entry.billable, entry.billed]
     fields.push [entry.description] if entry_type == "hours"
     fields.push [entry.supplier] if entry_type == "expenses"
+    fields.push [entry.description] if entry_type == "expenses"
+    fields.push [entry.supplier] if entry_type == "expenses"
+    fields.push [entry.currency] if entry_type == "expenses"
+    fields.push [entry.exchangerate] if entry_type == "expenses"
     fields.flatten
   end
 

@@ -33,7 +33,9 @@ class Report
         billable
         billed
         description
-        supllier) if entry_type == "expenses"
+        supplier
+        currency
+        exchangerate) if entry_type == "expenses"
 
     header.map do |headers|
       I18n.translate("report.headers.#{headers}")

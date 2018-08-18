@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: mileages
-#
-#  id         :integer          not null, primary key
-#  project_id :integer          not null
-#  user_id    :integer          not null
-#  value      :integer          not null
-#  date       :date             not null
-#  billed     :boolean          default("false")
-#  created_at :datetime
-#  updated_at :datetime
-#  from_adress :string,         null => false)
-#  to_adress   :string,         null => false)
-#  taxfree     :boolean         default("false"))
-#
 
 class Mileage < Entry
   

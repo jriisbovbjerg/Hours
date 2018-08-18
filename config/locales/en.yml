@@ -137,6 +137,7 @@ en:
       exhangerate: Exchangerate
       currency: Currency
       expense: Amount
+      expenses: Expenses
   entry_activity_html:
     one: "%{user} spent one hour doing %{category} on %{project}"
     other: "%{user} spent %{count} hours doing %{category} on %{project}"
@@ -223,6 +224,10 @@ en:
       billable: Billable
       billed: Billed
       description: Description
+      supplier: Supplier
+      exchangerate: Exchangerate
+      currency: Currency
+      expenses: Expenses
     filters: filters
     hours_per_day: Hours per day
     monthly: 1 month
