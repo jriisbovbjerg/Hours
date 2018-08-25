@@ -83,6 +83,13 @@ If your Docker host is running on `localhost` then you should be able to use pow
 
     http://DOCKER_IP:7000
 
+To get to a shell inside Docker use:
+
+    % docker-compose exec app bash
+Here you run test, rake etc
+
+
+
 Feature Flags
 -------------
 
