@@ -61,11 +61,12 @@ ActiveRecord::Schema.define(version: 20180826095527) do
     t.datetime "logo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "companyname",                    null: false
-    t.string   "adress",                         null: false
-    t.string   "otheradressinfo",                null: false
-    t.string   "invoiceemail",                   null: false
-    t.string   "paymentterms",                   null: false
+    t.string   "companyname",       default: "", null: false
+    t.string   "adress",            default: "", null: false
+    t.string   "postalcode",        default: "", null: false
+    t.string   "otherinfo",         default: "", null: false
+    t.string   "invoiceemail",      default: "", null: false
+    t.string   "paymentterms",      default: "", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

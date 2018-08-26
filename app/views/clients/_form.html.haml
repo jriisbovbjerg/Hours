@@ -3,5 +3,11 @@
   .form-inputs
     = f.input :name, required: true, autofocus: true
     = f.input :description, required: false
+    = f.input :companyname, required: false
+    = f.input :adress, required: false
+    = f.input :postalcode, required: false
+    = f.input :otherinfo, required: false
+    = f.input :invoiceemail, required: false
+    = f.input :paymentterms, required: true
     = f.input :logo, as: :file
     = f.button :submit

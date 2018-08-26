@@ -1,21 +1,12 @@
-# == Schema Information
-#
-# Table name: clients
-#
-#  id                :integer          not null, primary key
-#  name              :string           default(""), not null
-#  description       :string           default("")
-#  logo_file_name    :string
-#  logo_content_type :string
-#  logo_file_size    :integer
-#  logo_updated_at   :datetime
-#  created_at        :datetime
-#  updated_at        :datetime
-#
-
 class Client < ActiveRecord::Base
-  validates :name, presence: true,
-                   uniqueness: { case_sensitive: false }
+  validates :name,         presence: true, uniqueness: { case_sensitive: false }
+  validates :companyname,  presence: true
+  validates :adress,       presence: true
+  validates :postalcode,   presence: true
+  validates :otherinfo,    presence: true
+  validates :invoiceemail, presence: true
+  validates :paymentterms, presence: true 
+  
   scope :by_name, -> { order("lower(name)") }
   scope :by_last_updated, -> { order("clients.updated_at DESC") }
   has_many :projects

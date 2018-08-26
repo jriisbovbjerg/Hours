@@ -1,23 +1,18 @@
-# == Schema Information
-#
-# Table name: clients
-#
-#  id                :integer          not null, primary key
-#  name              :string           default(""), not null
-#  description       :string           default("")
-#  logo_file_name    :string
-#  logo_content_type :string
-#  logo_file_size    :integer
-#  logo_updated_at   :datetime
-#  created_at        :datetime
-#  updated_at        :datetime
-#
-
 describe Client do
   let(:client) { create(:client) }
 
   describe "validations" do
     it { should validate_presence_of :name }
+    it { should validate_presence_of :companyname }
+    it { should validate_presence_of :adress }
+    it { should validate_presence_of :postalcode }
+    it { should validate_presence_of :otherinfo }
+    it { should validate_presence_of :invoiceemail }
+    it { should validate_presence_of :paymentterms }
+  end
+
+  describe "uniqueness" do
+    subject { FactoryGirl.build(:client) }    
     it { should validate_uniqueness_of :name }
   end
 
