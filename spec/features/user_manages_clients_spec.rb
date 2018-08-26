@@ -82,12 +82,12 @@ feature "User manages clients" do
     visit clients_url(subdomain: subdomain)
     fill_in "Name", with: name
     fill_in "Description", with: description
-    fill_in "companyname", with: "companyname"
-    fill_in "adress", with: "adress"
-    fill_in "postalcode", with: "pocode"
-    fill_in "otherinfo", with: "info"
-    fill_in "invoiceemail", with: "mail"
-    fill_in "paymentterms", with: "terms"
+    fill_in "Companyname", with: "companyname"
+    fill_in "Adress", with: "adress"
+    fill_in "Postalcode", with: "pocode"
+    fill_in "Otherinfo", with: "info"
+    fill_in "Invoiceemail", with: "mail"
+    fill_in "Paymentterms", with: "terms"
     click_button I18n.t("helpers.submit.client.create", model: "Client")
   end
 end

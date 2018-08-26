@@ -1,13 +1,13 @@
 = simple_form_for(@client) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :name, required: true, autofocus: true
-    = f.input :description, required: false
-    = f.input :companyname, required: false
-    = f.input :adress, required: false
-    = f.input :postalcode, required: false
-    = f.input :otherinfo, required: false
-    = f.input :invoiceemail, required: false
-    = f.input :paymentterms, required: true
+    = f.input :name, required: true, autofocus: true, as: :string, placeholder: t("client.form.name")
+    = f.input :description, required: false, as: :string, placeholder: t("client.form.description")
+    = f.input :companyname, required: false, as: :string, placeholder: t("client.form.companyname")
+    = f.input :adress, required: false, as: :string, placeholder: t("client.form.adress")
+    = f.input :postalcode, required: false, as: :string, placeholder: t("client.form.postalcode")
+    = f.input :otherinfo, required: false, as: :string, placeholder: t("client.form.otherinfo")
+    = f.input :invoiceemail, required: false, as: :string, placeholder: t("client.form.invoiceemail")
+    = f.input :paymentterms, required: true, as: :string, placeholder: t("client.form.paymentterm")
     = f.input :logo, as: :file
     = f.button :submit

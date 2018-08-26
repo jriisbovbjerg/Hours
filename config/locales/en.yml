@@ -98,6 +98,15 @@ en:
     hours_spent_per_user: Hours spent per user
   client:
     edit: Edit
+    form:
+      companyname: Company Name
+      paymentterm: Payment Term
+      adress: Adress
+      postalcode: Postal Code
+      invoiceemail: Invoice Email(s)
+      otherinfo: Other info
+      description: Description
+      name: Name
   client_created: Client successfully created
   client_updated: Client successfully updated
   confirm: Are you sure?
