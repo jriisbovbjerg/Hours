@@ -12,13 +12,13 @@
             %table.entries-table
               = render 'hours_table'
             = paginate @hours_entries, param_name: :hours_pages
-        %li.tab-header-and-content-right
+        %li.tab-header-and-content-right.mileages
           %a.tab-link{href: "#mileages"}= t("entries.index.mileages")
           #mileages-tab.tab-content
             %table.entries-table
               = render 'mileages_table'
             = paginate @mileages_entries, param_name: :mileages_pages
-        %li.tab-header-and-content-right
+        %li.tab-header-and-content-right.expenses
           %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
           #expenses-tab.tab-content
             %table.entries-table
