@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180826095527) do
+ActiveRecord::Schema.define(version: 20180901203919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,19 @@ ActiveRecord::Schema.define(version: 20180826095527) do
     t.string   "invoiceemail",      default: "", null: false
     t.string   "paymentterms",      default: "", null: false
   end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name",       default: "", null: false
+    t.string   "email",      default: "", null: false
+    t.string   "position",   default: "", null: false
+    t.string   "department", default: "", null: false
+    t.string   "phone",      default: "", null: false
+    t.integer  "client_id",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts", ["client_id"], name: "index_contacts_on_client_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
