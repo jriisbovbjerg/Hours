@@ -6,6 +6,7 @@ class Contact < ActiveRecord::Base
   validates :email,        presence: true
   
   has_many :projects
+  
   belongs_to :client, touch: true
 
 end

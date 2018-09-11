@@ -25,11 +25,14 @@ class Project < ActiveRecord::Base
   has_many :hours
   has_many :mileages
   has_many :expenses
+
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
   belongs_to :client, touch: true
 
+  has_one :contact
+  
   scope :by_last_updated, -> { order("projects.updated_at DESC") }
   scope :by_name, -> { order("lower(name)") }
 

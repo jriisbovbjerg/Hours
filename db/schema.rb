@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180901203919) do
+ActiveRecord::Schema.define(version: 20180901211258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20180901203919) do
     t.integer  "client_id"
     t.boolean  "archived",    default: false, null: false
     t.text     "description"
+    t.integer  "contact_id"
   end
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
