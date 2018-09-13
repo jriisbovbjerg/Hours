@@ -21,6 +21,14 @@ module ApplicationHelper
     presenter
   end
 
+  def contact_title(contact)
+    html = ""
+    html << content_tag(:span, "", class: "color",
+        style: "background-color:#{contact.name.pastel_color};")
+    html << content_tag(:span, contact.name)
+    html.html_safe
+  end
+
   def client_title(client)
     html = ""
     if client.logo_url != ""

@@ -1,0 +1,5 @@
+%li
+  .contact
+    = link_to contact_path(contact) do
+      = contact_title(contact)
+    #{link_to t("contact.edit"), edit_contact_path(contact), class: "edit"}
