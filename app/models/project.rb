@@ -37,7 +37,7 @@ class Project < ActiveRecord::Base
 
   def budget_status
     budget - hours.sum(:value) if budget
-  end
+  end  
 
   def has_billable_entries?
     hours.exists?(billed: false) ||

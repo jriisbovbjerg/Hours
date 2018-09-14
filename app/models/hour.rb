@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: hours
-#
-#  id          :integer          not null, primary key
-#  project_id  :integer          not null
-#  category_id :integer          not null
-#  user_id     :integer          not null
-#  value       :integer          not null
-#  date        :date             not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  description :string
-#  billed      :boolean          default("false")
-#
 
 class Hour < Entry
   audited allow_mass_assignment: true
