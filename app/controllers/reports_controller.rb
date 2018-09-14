@@ -18,6 +18,7 @@ class ReportsController < ApplicationController
       format.csv do
         send_csv(
           name: current_subdomain || "export",
+          type: params[:type],
           hours_entries: entries(Hour.query(params[:entry_filter])),
           mileages_entries: entries(Mileage.query(params[:entry_filter])),
           expenses_entries: entries(Expense.query(params[:entry_filter]))

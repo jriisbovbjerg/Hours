@@ -72,7 +72,15 @@ module ApplicationHelper
   end
 
   def download_csv_params
-    params.except(:controller, :action).merge(format: "csv")
+    params.except(:controller, :action).merge( type: "general", format: "csv")
+  end
+
+  def download_csv_params_per_user
+    params.except(:controller, :action).merge( type: "user", format: "csv")
+  end
+
+  def download_csv_params_per_project
+    params.except(:controller, :action).merge(type: "project", format: "csv")
   end
 
   def colored_span(color, content)

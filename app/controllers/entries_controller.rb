@@ -16,6 +16,7 @@ class EntriesController < ApplicationController
       format.csv do
         send_csv(
           name: @user.name.gsub(/\s+/, "_"),
+          type: "general",
           hours_entries: @user.hours.by_date,
           mileages_entries: @user.mileages.by_date,
           expenses_entries: @user.expenses.by_date)
