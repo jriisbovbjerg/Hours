@@ -8,6 +8,7 @@ class UserCSVGenerator
   def initialize(hours_entries, mileages_entries, expenses_entries)
     @hours_report = Report.new(hours_entries)
     @mileages_report = Report.new(mileages_entries)
+    binding.pry
     @expenses_report = Report.new(expenses_entries)
   end
 
@@ -19,6 +20,8 @@ class UserCSVGenerator
       fill_fields("expenses", csv)
     #end
       binding.pry # Execution will stop here.
+      e = 23
+      puts 'Goodbye World' # Run 'next' in the console to move here.
   end
 
   def fill_fields(entry_type, csv)
