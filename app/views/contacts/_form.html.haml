@@ -1,0 +1,10 @@
+= simple_form_for(@contact) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, required: true, autofocus: true, as: :string, placeholder: t("contact.form.name")
+    = f.input :position, required: false, as: :string, placeholder: t("contact.form.position")
+    = f.input :department, required: false, as: :string, placeholder: t("contact.form.department")
+    = f.input :phone, required: false, as: :string, placeholder: t("contact.form.phone")
+    = f.input :email, required: false, as: :string, placeholder: t("contact.form.email")
+    = f.association :client, required: false, collection: Client.by_name, placeholder: t("project.form.client"), include_blank: t("project.form.no_client")
+    = f.button :submit

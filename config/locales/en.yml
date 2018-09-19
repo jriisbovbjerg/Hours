@@ -110,6 +110,17 @@ en:
   client_created: Client successfully created
   client_updated: Client successfully updated
   confirm: Are you sure?
+  contact:
+    edit: Edit
+    form:
+      name: Name
+      position: Position
+      department: Department
+      phone: Phone
+      email: Email
+  contact_created: Contact successfully created
+  contact_updated: Contact successfully updated
+
   date:
     formats:
       default: "%d/%m/%Y"
@@ -126,6 +137,8 @@ en:
       wrong_mail: If you didn't request this, please ignore this email.
   entries:
     download_csv: Download all entries as CSV
+    download_csv_per_project: Download CSV by project
+    download_csv_per_user: Download CSV by user
     index:
       category: Category
       date: Date
@@ -179,6 +192,9 @@ en:
       client:
         create: Create Client
         update: Update Client
+      contactt:
+        create: Create Contact
+        update: Update Contact
   info:
     here: here
     no_categories_html: It looks like you don't have any categories set up yet, you
@@ -272,6 +288,9 @@ en:
     clients:
       index: Clients
       new: New Client
+    contacts:
+      index: Contacts
+      new: New Contact
     entries:
       index: All Entries
     projects:

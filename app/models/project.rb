@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: projects
-#
-#  id          :integer          not null, primary key
-#  name        :string           default(""), not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  slug        :string
-#  budget      :integer
-#  billable    :boolean          default("false")
-#  client_id   :integer
-#  archived    :boolean          default("false"), not null
-#  description :text
-#
 
 class Project < ActiveRecord::Base
   include Sluggable
@@ -25,11 +10,14 @@ class Project < ActiveRecord::Base
   has_many :hours
   has_many :mileages
   has_many :expenses
+
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
+  
   belongs_to :client, touch: true
-
+  belongs_to :contact, touch: true
+  
   scope :by_last_updated, -> { order("projects.updated_at DESC") }
   scope :by_name, -> { order("lower(name)") }
 
@@ -49,7 +37,7 @@ class Project < ActiveRecord::Base
 
   def budget_status
     budget - hours.sum(:value) if budget
-  end
+  end  
 
   def has_billable_entries?
     hours.exists?(billed: false) ||

@@ -9,8 +9,9 @@ class Client < ActiveRecord::Base
   
   scope :by_name, -> { order("lower(name)") }
   scope :by_last_updated, -> { order("clients.updated_at DESC") }
+  
   has_many :projects
-
+  
   has_many :hours, through: :projects
   has_many :mileages, through: :projects
   has_many :expenses, through: :projects
