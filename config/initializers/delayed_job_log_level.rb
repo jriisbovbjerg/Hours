@@ -1,0 +1,1 @@
+Delayed::Backend::ActiveRecord::Job.logger.level = 1
