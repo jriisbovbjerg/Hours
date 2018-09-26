@@ -16,7 +16,7 @@ Hour.destroy_all
 Mileage.destroy_all
 
 
-users = User.create([{first_name: "Jan Riis", last_name: "Bovbjerg", email: "jriisbovjerg@gmail.com", password: "pass", confirmed_at: Date.current}
+users = User.create([{first_name: "Jan Riis", last_name: "Bovbjerg", email: "jriisbovbjerg@gmail.com", password: "pass", confirmed_at: Date.current}
                      {first_name: "Ole", last_name: "Pedersen", email: "email1@biir.dk", password: "pass", confirmed_at: Date.current},
                      {first_name: "Torben", last_name: "Andersen", email: "email2@biir.dk", password: "pass", confirmed_at: Date.current}])
 
