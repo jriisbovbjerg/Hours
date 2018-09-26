@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180901211258) do
+ActiveRecord::Schema.define(version: 20180926141349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,16 +154,22 @@ ActiveRecord::Schema.define(version: 20180901211258) do
   add_index "mileages", ["user_id"], name: "index_mileages_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",        default: "",    null: false
+    t.string   "name",             default: "",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
     t.integer  "budget"
-    t.boolean  "billable",    default: false
+    t.boolean  "billable",         default: false
     t.integer  "client_id"
-    t.boolean  "archived",    default: false, null: false
+    t.boolean  "archived",         default: false,                        null: false
     t.text     "description"
     t.integer  "contact_id"
+    t.string   "currency",         default: "EUR",                        null: false
+    t.string   "period",           default: "hourly",                     null: false
+    t.string   "valid_from",       default: "--- !ruby/object:Proc {}\n", null: false
+    t.string   "valid_to",         default: "--- !ruby/object:Proc {}\n", null: false
+    t.string   "invoice_email",    default: "",                           null: false
+    t.string   "reference_number", default: "",                           null: false
   end
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree

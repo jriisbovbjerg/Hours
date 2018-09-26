@@ -6,8 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = User.create([{first_name: "first_name1", last_name: "last_name1", email: "email1@biir.dk", password: "pass1", confirmed_at: Date.current},
-                     {first_name: "first_name2", last_name: "last_name2", email: "email2@biir.dk", password: "pass2", confirmed_at: Date.current}])
+#Cleanup
+User.destroy_all
+Client.destroy_all
+Project.destroy_all
+Category.destroy_all
+Expense.destroy_all
+Hour.destroy_all
+Mileage.destroy_all
+
+
+users = User.create([{first_name: "Jan Riis", last_name: "Bovbjerg", email: "jriisbovjerg@gmail.com", password: "pass", confirmed_at: Date.current}
+                     {first_name: "Ole", last_name: "Pedersen", email: "email1@biir.dk", password: "pass", confirmed_at: Date.current},
+                     {first_name: "Torben", last_name: "Andersen", email: "email2@biir.dk", password: "pass", confirmed_at: Date.current}])
 
 
 clients = Client.create([{ name: "Alpha", companyname: "Alpha", adress: "A-vej", postalcode: "6600", otherinfo: "building", invoiceemail: "invoice@alpha_test.com", paymentterms: "NET OEM 30"},
@@ -22,11 +33,11 @@ contacts  =Contact.create([{ name: "Anders", email: "anders@alpha_test.com", pos
 
 
 
-projects = Project.create([{ name:"Betonblok", client: Client.first, description: "bare et project 1", contact_id: Contact.first},
-                          { name:"Betonrør", client: Client.first, description: "bare et project 2", contact_id: Contact.second},
-                          { name:"Stålrørs kran", client: Client.second, description: "bare et project 3", contact_id: Contact.third},
-                          { name:"Panservogn", client: Client.second, description: "bare et project 4", contact_id: Contact.third},
-                          { name:"Timereg system", client: Client.third, description: "bare et project 5", contact_id: Contact.fourth}])
+projects = Project.create([{ name:"Betonblok", client: Client.first, description: "bare et project 1", reference_number: "JRB", invoice_email: "j@b.dk", valid_from: (Date.today - 1.month).beginning_of_month, valid_to: (Date.today + 1.month).end_of_month, currency: "EUR", contact_id: Contact.first},
+                          { name:"Betonrør", client: Client.first, description: "bare et project 2", reference_number: "SS123123", invoice_email: "j@b.dk", valid_from: (Date.today - 2.month).beginning_of_month, valid_to: (Date.today + 2.month).end_of_month, currency: "EUR", contact_id: Contact.second},
+                          { name:"Stålrørs kran", client: Client.second, description: "bare et project 3", reference_number: "321123", invoice_email: "j@b.dk", valid_from: (Date.today - 3.month).beginning_of_month, valid_to: (Date.today + 3.month).end_of_month, currency: "EUR", contact_id: Contact.third},
+                          { name:"Panservogn", client: Client.second, description: "bare et project 4", reference_number: "PO5676123", invoice_email: "j@b.dk", valid_from: (Date.today - 4.month).beginning_of_month, valid_to: (Date.today + 4.month).end_of_month, currency: "EUR", contact_id: Contact.third},
+                          { name:"Timereg system", client: Client.third, description: "bare et project 5", reference_number: "PO765123", invoice_email: "j@b.dk", valid_from: (Date.today - 5.month).beginning_of_month, valid_to: (Date.today + 5.month).end_of_month, currency: "EUR", contact_id: Contact.fourth}])
 
 categories = Category.create([{ name: "analyse"}, { name: "beregning"}, { name: "udvikling"}, { name: "rådgivning"}, { name: "test"}])
 
