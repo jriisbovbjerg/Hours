@@ -17,6 +17,7 @@
                 = render "application/avatar", user: current_user, easter: easter?
                 %span.user-name= current_user.first_name
               %ul
+                %li= link_to t("titles.projects.index"), projects_path
                 %li= link_to t("titles.categories.index"), categories_path
                 %li= link_to t("titles.users.index"), users_path
                 %li= link_to t("titles.billables.index"), billables_path

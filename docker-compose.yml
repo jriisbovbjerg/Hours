@@ -34,3 +34,5 @@ services:
       - "7000:8080"
     depends_on:
       - db
+    stdin_open: true
+    tty: true

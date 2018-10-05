@@ -88,7 +88,7 @@ module ApplicationHelper
       content
     end
   end
-
+  
   def easter?
     holiday = Holidays.on(Date.today, :nl)
     holiday[0][:name] == "Pasen" if holiday.any?
