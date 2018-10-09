@@ -56,4 +56,14 @@ describe Expense do
       expect(Expense.with_clients.count).to eq(1)
     end
   end
+
+  describe "calulates value" do
+    let(:expense) { build(:expense) }
+    it "calulates" do
+      expense.amount = 100
+      expense.exchangerate = 7.46
+      expense.save
+      expect(expense.value).to eq(746)
+    end
+  end
 end
