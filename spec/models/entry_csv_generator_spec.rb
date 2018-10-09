@@ -18,14 +18,11 @@ describe EntryCSVGenerator do
     csv = generator.generate
 
     expect(csv).to include(
-      #Date  User  Project Client  Hours Billable  Billed  Description Category
       "Date,User,Project,Client,Hours,Billable,Billed,Description,Category")
     expect(csv).to include(
-      #Date  User  Project Client  Kilometers  Billable  Billed  From Adress To Adress
       "Date,User,Project,Client,Kilometers,Billable,Billed,From Adress,To Adress")
     expect(csv).to include(
-      #Date  User  Project Client  Value Billable  Billed  Description Supplier  Currency  Exchangerate
-      "Date,User,Project,Client,Value,Billable,Billed,Description,Supplier,Currency,Exchangerate")
+      "Date,User,Project,Client,Value,Billable,Billed,Description,Supplier,Amount,Exchangerate")
     
     expect(csv.lines.count).to eq(15)
     expect(csv.lines.second.split(",").count).to eq(1)

@@ -2,7 +2,8 @@
 FactoryGirl.define do
   factory :expense do
     project
-    value 1
+    amount 1
+    value 7
     date "2014-02-26 22:06:47"
     user
     currency "DKK"

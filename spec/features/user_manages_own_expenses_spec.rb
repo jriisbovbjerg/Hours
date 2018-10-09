@@ -35,7 +35,7 @@ feature "User manages their own expense" do
 
     expect(page).to have_select("expense_project_id",
                                 selected: new_project.name)
-    expect(find_field("expense_value").value).to eq(new_value.to_f.to_s)
+    expect(find_field("expense_amount").value).to eq(new_value.to_f.to_s)
     expect(find_field("expense_date").value).to eq(new_date.to_s)
   end
 
@@ -77,7 +77,7 @@ feature "User manages their own expense" do
     click_link I18n.t("entries.index.edit")
 
     select(new_project.name, from: "expense_project_id")
-    fill_in "expense_value", with: new_expenses
+    fill_in "expense_amount", with: new_expenses
     fill_in "expense_date", with: new_date
 
     click_button (I18n.t("helpers.submit.update"))

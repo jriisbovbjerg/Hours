@@ -4,11 +4,13 @@ describe Expense do
     it { should validate_presence_of :user }
     it { should validate_presence_of :project }
     it { should validate_presence_of :value }
+    it { should validate_presence_of :amount }
     it { should validate_presence_of :date }
     it { should validate_presence_of :supplier }
     it { should validate_presence_of :currency }
     it { should validate_presence_of :exchangerate }
     it { should validate_presence_of :description }
+    it { should validate_numericality_of(:amount).is_greater_than(0) }
     it { should validate_numericality_of(:value).is_greater_than(0) }
     it { should validate_numericality_of(:exchangerate).is_greater_than(0) }
   end
@@ -23,7 +25,7 @@ describe Expense do
     user = create(:user)
 
     Audited.audit_class.as_user(user) do
-      expense.update_attribute(:value, 2)
+      expense.update_attribute(:amount, 2)
     end
     expect(expense.audits.last.user).to eq(user)
   end
