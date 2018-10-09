@@ -12,7 +12,7 @@ feature "User view tags overview" do
     entry.tags << tag
     create(:hour, user: user, project: project, value: 6).tags << tag
 
-    click_link "Projects"
+    first(:link, 'Projects').click
     click_link tag.name
 
     hours_indication = I18n.t("tags.show.hours_indication")
