@@ -4,9 +4,9 @@
     %th= t("entries.index.project")
     %th= t('entries.index.supplier')
     %th.hide-for-mobile= t('entries.index.description')
-    %th.center= t("entries.index.expenses")
-    %th= t('entries.index.currency')
+    %th= t("entries.index.amount")
     %th= t('entries.index.exchangerate')
+    %th= t('entries.index.value')
 
     - if @user == current_user
       %th.right
@@ -21,9 +21,9 @@
         %td.project= link_to entry.project.name, entry.project
         %td.supplier= entry.supplier
         %td.description.hide-for-mobile= entry.description
-        %td.value.center= entry.value
-        %td.currency= entry.currency
+        %td.value= "#{entry.amount} #{entry.currency}"
         %td.exchangerate= entry.exchangerate
+        %td.value.center= entry.value
         - if @user == current_user
           %td.actions.right
             = link_to t('entries.index.edit'), edit_expense_path(entry)

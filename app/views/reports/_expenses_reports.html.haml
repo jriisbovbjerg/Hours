@@ -8,31 +8,27 @@
             %th= t("report.headers.date")
             %th= t("report.headers.user")
             %th= t("report.headers.project")
-            %th.hide-for-mobile
             %th.hide-for-mobile= t("report.headers.client")
-            %th= t("report.headers.expenses")
-            %th.hide-for-mobile= t("report.headers.currency")
+            %th.hide-for-mobile= t("report.headers.amount")
             %th.hide-for-mobile= t("report.headers.exchangerate")
+            %th= t("report.headers.value")
             %th.hide-for-mobile= t("report.headers.supplier")
             %th.hide-for-mobile= t("report.headers.description")
             %th.hide-for-mobile= t("report.headers.billable")
             %th.hide-for-mobile= t("report.headers.billed")
-            %th.hide-for-mobile
         %tbody
         - @expenses_entries.each do |entry|
           %tr.info-row
           %td= entry.date
           %td= link_to entry.user.full_name, entry.user
           %td= link_to entry.project.name, entry.project
-          %td.hide-for-mobile
           %td.hide-for-mobile= link_to entry.project.client.name, entry.project.client if entry.project.client
-          %td= entry.value
-          %th.hide-for-mobile= entry.currency
+          %td.hide-for-mobile= "#{entry.amount} #{entry.currency}"
           %th.hide-for-mobile= entry.exchangerate
+          %td= entry.value
           %th.hide-for-mobile= entry.supplier
           %th.hide-for-mobile= entry.description
           %td.hide-for-mobile= entry.project.billable
           %td.hide-for-mobile= entry.billed
-          %td.hide-for-mobile
 
     = paginate @expenses_entries, param_name: :expenses_pages
