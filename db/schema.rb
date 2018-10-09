@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180926141349) do
+ActiveRecord::Schema.define(version: 20181009115654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20180926141349) do
     t.boolean  "billed",                                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "amount",       precision: 10, scale: 2,                 null: false
   end
 
   add_index "expenses", ["billed"], name: "index_expenses_on_billed", using: :btree
