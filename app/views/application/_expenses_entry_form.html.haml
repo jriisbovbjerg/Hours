@@ -1,7 +1,7 @@
 = simple_form_for @expenses_entry do |f|
   = f.error_notification
   = f.association :project, required: true, collection: Project.unarchived.by_name, label: false, placeholder: t("entries.index.project")
-  = f.input :value, required: true, as: :integer, label:false, placeholder: t("entries.index.expense")
+  = f.input :amount, required: true, as: :integer, label:false, placeholder: t("entries.index.expense")
   = f.input :date, required: true, as: :string, input_html: { value: (@expenses_entry.date || DateTime.current).strftime("%d/%m/%Y"), class: "datepicker"}, label: false
   = f.input :supplier, required: true, as: :string, label: false, placeholder: t("entries.index.supplier")
   = f.input :description, required: true, as: :string, label: false, placeholder: t("entries.index.description")
