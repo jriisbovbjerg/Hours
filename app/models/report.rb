@@ -36,7 +36,7 @@ class Report
         billed
         description
         supplier
-        currency
+        amount
         exchangerate) if entry_type == "expenses"
 
     header.map do |headers|

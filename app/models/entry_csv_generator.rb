@@ -40,7 +40,7 @@ class EntryCSVGenerator
     fields.push [entry.description] if entry_type == "expenses"
     fields.push [entry.from_adress, entry.to_adress] if entry_type == "mileages"
     fields.push [entry.category] if entry_type == "hours"
-    fields.push [entry.supplier, entry.currency, entry.exchangerate] if entry_type == "expenses"
+    fields.push [entry.supplier, "#{entry.amount} #{entry.currency}", entry.exchangerate] if entry_type == "expenses"
     fields.flatten
   end
 
