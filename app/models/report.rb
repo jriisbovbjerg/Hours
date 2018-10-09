@@ -10,26 +10,28 @@ class Report
         client
         mileages
         billable
-        billed) if entry_type == "mileages"
+        billed
+        from_adress
+        to_adress
+        ) if entry_type == "mileages"
     
     header = %w(
         date
         user
         project
-        category
         client
         hours
         billable
         billed
-        description) if entry_type == "hours"
+        description
+        category) if entry_type == "hours"
     
     header = %w(
         date
         user
         project
-        category
         client
-        hours
+        value
         billable
         billed
         description
@@ -41,6 +43,8 @@ class Report
       I18n.translate("report.headers.#{headers}")
     end
   end
+
+
 
   def each_row(&block)
     @entries.each(&block)

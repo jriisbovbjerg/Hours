@@ -2,9 +2,12 @@
   .sidebar
     .container
       = render "filters"
-      = link_to t("entries.download_csv"),             reports_path(download_csv_params)
-      = link_to t("entries.download_csv_per_project"), reports_path(download_csv_params_per_project)
-      = link_to t("entries.download_csv_per_user"),    reports_path(download_csv_params_per_user)
+      %hr
+      %h5= t("entries.download")
+      %ul
+        %li= link_to t("entries.download_csv"),             reports_path(download_csv_params)
+        %li= link_to t("entries.download_csv_per_project"), reports_path(download_csv_params_per_project)
+        %li= link_to t("entries.download_csv_per_user"),    reports_path(download_csv_params_per_user)
   .reports-tabs-container
     %ul.accordion-tabs
       = render partial: "hours_reports"
