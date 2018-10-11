@@ -34,7 +34,7 @@ class ExpensesController < EntriesController
 
   def entry_params
     params.require(:expense).
-      permit(:project_id, :amount, :value, :date, :currency, :exchangerate, :description, :supplier).
+      permit(:project_id, :amount, :value, :date, :currency, :exchangerate, :description, :supplier, :receipt).
       merge(date: parsed_date(:expense))
   end
 end

@@ -96,7 +96,8 @@ If you updated the Gemfile, you need to stop the running services and build the 
 
 after build the app fails since the db don't exist - run:
 
-    % docker-compose run --rm app rake db:create db:migrate db:seed
+    % docker-compose run --rm app rake db:create db:migrate
+    % docker-compose run --rm app rake db:seed
 
 and finally restart instances with 
 

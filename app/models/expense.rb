@@ -6,6 +6,12 @@ class Expense < Entry
   validates :value, :numericality => { :greater_than => 0, only_integer: false }
   validates :exchangerate, :numericality => { :greater_than => 0, only_integer: false }
   
+  has_attached_file :receipt,
+                    styles: { thumb: ["32x32#", :png]},
+                    default_url: "",
+                    s3_protocol: ""
+  validates_attachment_content_type :receipt, content_type: /\Aimage\/.*\Z/
+
   scope :by_last_created_at, -> { order("created_at DESC") }
   scope :by_date, -> { order("date DESC") }
   scope :billable, -> { where("billable").joins(:project) }
@@ -19,6 +25,13 @@ class Expense < Entry
     end
   end
 
+  def receipt_url
+    receipt.url(:original)
+  end
+
+  def receipt_thumb
+    receipt.url(:thumb)
+  end
 
   def self.query(params, includes = nil)
     EntryQuery.new(self.includes(includes).by_date, params, "expenses").filter

@@ -624,8 +624,6 @@ GEM
       capybara (>= 2.0.2, < 2.4.0)
       json
     climate_control (0.2.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -723,7 +721,6 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
-    mini_magick (4.9.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -738,12 +735,12 @@ GEM
       mini_portile2 (~> 2.3.0)
     normalize-rails (3.0.1)
     orm_adapter (0.5.0)
-    paperclip (5.1.0)
+    paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     pg (0.18.4)
     pikaday-gem (1.2.0)
       railties (>= 3.1)
@@ -859,6 +856,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
     temple (0.7.6)
     terminal-table (1.5.2)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.5)
@@ -926,12 +925,11 @@ DEPENDENCIES
   launchy
   letter_opener
   memcachier
-  mini_magick
   momentjs-rails
   neat
   newrelic_rpm (>= 3.7.3)
   normalize-rails
-  paperclip (~> 5.1.0)
+  paperclip (~> 6.1.0)
   pg
   pikaday-gem (~> 1.2.0.0)
   pry

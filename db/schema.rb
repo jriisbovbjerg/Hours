@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181009115654) do
+ActiveRecord::Schema.define(version: 20181011110314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,20 +53,20 @@ ActiveRecord::Schema.define(version: 20181009115654) do
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string   "name",              default: "", null: false
-    t.string   "description",       default: ""
+    t.string   "name",                        default: "", null: false
+    t.string   "description",                 default: ""
     t.string   "logo_file_name"
     t.string   "logo_content_type"
-    t.integer  "logo_file_size"
+    t.integer  "logo_file_size",    limit: 8
     t.datetime "logo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "companyname",       default: "", null: false
-    t.string   "adress",            default: "", null: false
-    t.string   "postalcode",        default: "", null: false
-    t.string   "otherinfo",         default: "", null: false
-    t.string   "invoiceemail",      default: "", null: false
-    t.string   "paymentterms",      default: "", null: false
+    t.string   "companyname",                 default: "", null: false
+    t.string   "adress",                      default: "", null: false
+    t.string   "postalcode",                  default: "", null: false
+    t.string   "otherinfo",                   default: "", null: false
+    t.string   "invoiceemail",                default: "", null: false
+    t.string   "paymentterms",                default: "", null: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -99,18 +99,22 @@ ActiveRecord::Schema.define(version: 20181009115654) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "expenses", force: :cascade do |t|
-    t.integer  "project_id",                                            null: false
-    t.integer  "user_id",                                               null: false
-    t.decimal  "value",        precision: 10, scale: 2,                 null: false
-    t.string   "currency",                              default: "DKK", null: false
-    t.decimal  "exchangerate", precision: 10, scale: 2, default: 1.0,   null: false
-    t.string   "supplier",                                              null: false
-    t.string   "description",                                           null: false
-    t.date     "date",                                                  null: false
-    t.boolean  "billed",                                default: false
+    t.integer  "project_id",                                                              null: false
+    t.integer  "user_id",                                                                 null: false
+    t.decimal  "value",                          precision: 10, scale: 2,                 null: false
+    t.string   "currency",                                                default: "DKK", null: false
+    t.decimal  "exchangerate",                   precision: 10, scale: 2, default: 1.0,   null: false
+    t.string   "supplier",                                                                null: false
+    t.string   "description",                                                             null: false
+    t.date     "date",                                                                    null: false
+    t.boolean  "billed",                                                  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",       precision: 10, scale: 2,                 null: false
+    t.decimal  "amount",                         precision: 10, scale: 2,                 null: false
+    t.string   "receipt_file_name"
+    t.string   "receipt_content_type"
+    t.integer  "receipt_file_size",    limit: 8
+    t.datetime "receipt_updated_at"
   end
 
   add_index "expenses", ["billed"], name: "index_expenses_on_billed", using: :btree

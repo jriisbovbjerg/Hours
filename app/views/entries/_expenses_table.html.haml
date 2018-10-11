@@ -7,6 +7,7 @@
     %th= t("entries.index.amount")
     %th= t('entries.index.exchangerate')
     %th= t('entries.index.value')
+    %th= t('entries.index.receipt')
 
     - if @user == current_user
       %th.right
@@ -24,9 +25,10 @@
         %td.value= "#{entry.amount} #{entry.currency}"
         %td.exchangerate= entry.exchangerate
         %td.value.center= entry.value
+        %td.receipt= link_to image_tag( entry.receipt_thumb ), entry.receipt_url
         - if @user == current_user
           %td.actions.right
             = link_to t('entries.index.edit'), edit_expense_path(entry)
             |
             = link_to t('entries.index.delete'), expense_path(entry) , method: :delete, class: "destroy", data: { confirm: t(:confirm) }
-        %td.changes.right.hide-for-mobile= link_to t('entries.index.changes'), expense_audits_path(entry) if entry.audits.any?
+        %td.changes.right.hide-for-mobile= link_to t('entries.index.changes'), expense_audits_path(entry) if entry.audits.count > 1
