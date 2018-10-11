@@ -88,6 +88,19 @@ To get to a shell inside Docker use:
     % docker-compose exec app bash
 Here you run test, rake etc
 
+Updating gems:
+If you updated the Gemfile, you need to stop the running services and build the image again. The following commands should get you back up online:
+
+    % docker-compose down
+    % docker-compose up --build
+
+after build the app fails since the db don't exist - run:
+
+    % docker-compose run --rm app rake db:create db:migrate db:seed
+
+and finally restart instances with 
+
+    % docker-compose up -d
 
 
 Feature Flags
