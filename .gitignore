@@ -7,6 +7,7 @@
 /.foreman
 /coverage/*
 /db/*.sqlite3
+/db/seed_data/*
 /log/*
 /public/system
 /tags
