@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181011110314) do
+ActiveRecord::Schema.define(version: 20181012074823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,14 +201,14 @@ ActiveRecord::Schema.define(version: 20181011110314) do
   add_index "tags", ["slug"], name: "index_tags_on_slug", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",             default: "", null: false
-    t.string   "last_name",              default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "first_name",                                      default: "",            null: false
+    t.string   "last_name",                                       default: "",            null: false
+    t.string   "email",                                           default: "",            null: false
+    t.string   "encrypted_password",                              default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                                   default: 0,             null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -228,7 +228,11 @@ ActiveRecord::Schema.define(version: 20181011110314) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",                               default: 0
+    t.string   "currency",                                        default: "DKK",         null: false
+    t.string   "homeadress",                                      default: "home_adress", null: false
+    t.string   "workadress",                                      default: "work_adress", null: false
+    t.decimal  "weeklyhours",            precision: 10, scale: 2, default: 37.0,          null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
