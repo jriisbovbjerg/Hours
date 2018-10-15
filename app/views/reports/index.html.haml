@@ -4,7 +4,14 @@
       = render "filters"
       %hr
       %h5= t("entries.download")
-      %ul
+      %hr
+      = form_tag wage_report_path(:csv), method: :get do
+        = select_year(Date.today, {:prompt => "Year",:start_year => DateTime.now.year,:end_year => DateTime.now.year - 7},{:field_name => 'year', :id => 'start-year'})
+        = select_month(Date.today, {:prompt => "month",use_short_month: true},{:field_name => 'month', :id => 'start-month'})
+        = submit_tag("Download WageReport", :id=>"button", :class=>"Wage", :name=>"submit")    
+      %hr
+      %h5= t("entries.download")
+      %ul 
         %li= link_to t("entries.download_csv"),             reports_path(download_csv_params)
         %li= link_to t("entries.download_csv_per_project"), reports_path(download_csv_params_per_project)
         %li= link_to t("entries.download_csv_per_user"),    reports_path(download_csv_params_per_user)

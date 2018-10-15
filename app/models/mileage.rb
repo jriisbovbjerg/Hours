@@ -11,6 +11,11 @@ class Mileage < Entry
   scope :with_clients, -> {
     where.not("projects.client_id" => nil).joins(:project)
   }
+  scope :in_year,     lambda {|year| where("extract(year from date) = ?", year)}
+  scope :in_month,     lambda {|month| where("extract(month from date) = ?", month)}
+  scope :date_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+  scope :taxfree,    -> { where(taxfree: true) }
+  scope :nontaxfree, -> { where(taxfree: false)}
 
   def description
     "#{from_adress} -> #{to_adress}"

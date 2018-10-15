@@ -19,9 +19,15 @@ module CSVDownload
               ProjectCSVGenerator.generate(hours_entries, mileages_entries, expenses_entries),
               filename: "Project-entries-#{timestamp}.csv",
               type: "text/csv")
-    
     end
   
+  end
+
+  def wage_csv(name:, year:, month:)
+    return send_data(
+              UserWageReport.new(year, month).generate,
+              filename: "#{year}_#{month}_#{name}_#{timestamp}.csv",
+              type: "text/csv")
   end
 
   def timestamp

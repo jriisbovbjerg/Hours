@@ -16,7 +16,10 @@ class Expense < Entry
   scope :by_date, -> { order("date DESC") }
   scope :billable, -> { where("billable").joins(:project) }
   scope :with_clients, -> { where.not("projects.client_id" => nil).joins(:project) }
-  
+  scope :in_year,      lambda {|year| where("extract(year from date) = ?", year)}
+  scope :in_month,     lambda {|month| where("extract(month from date) = ?", month)}
+  scope :date_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+
   before_validation :calculate_value
 
   def calculate_value
