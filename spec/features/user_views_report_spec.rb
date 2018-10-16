@@ -14,7 +14,6 @@ feature "User Report" do
 
     expect(page).to have_content(hour.value)
     expect(page).to have_content(mileage.value)
-    expect(page).to have_content(I18n.t("entries.download_csv"))
     expect(page).to have_selector(".info-row")
   end
 

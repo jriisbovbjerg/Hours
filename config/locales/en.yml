@@ -265,7 +265,23 @@ en:
       amount: Amount
       hours_invoiced: Hours Invoiced
       hours_non_invoiced: Hours Internal
-      
+      id: ID
+      name: Name
+      initials: Initials
+      weeklyhours: Weeklyhours [h]
+      expenses_dkk: Expenses [DKK]
+      taxfremileages_km: Taxfreemilage [km]
+      nontaxfreemileage_km: Nontaxfreemilage [km]
+      total_h: Total hours [h]
+      invoiced_h: Invoiced [h]
+      overtime_h: Overtime [h]
+      sick_h: Sick [h]
+      training_h: Training [h]
+      parental_h: Parental [h]
+      chlidsick_h: Childsick [h]
+      isowork_h: ISO-work [h]
+      vacation_h: Vacation [h]
+      vacation_d: Vacation [days]
     filters: filters
     hours_per_day: Hours per day
     monthly: 1 month

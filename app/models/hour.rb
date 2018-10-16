@@ -18,7 +18,18 @@ class Hour < Entry
   scope :billable, -> { where("billable").joins(:project) }
   scope :with_clients, -> {
     where.not("projects.client_id" => nil).joins(:project)
-  }
+    }
+    
+  scope :in_year,     lambda {|year| where("extract(year from date) = ?", year)}
+  scope :in_month,     lambda {|month| where("extract(month from date) = ?", month)}
+  scope :date_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+  
+  scope :sick,       -> { where("projects.name" => "Sick").joins(:project)}
+  scope :vacation,   -> { where("projects.name" => "Vacation").joins(:project)}
+  scope :parental,   -> { where("projects.name" => "Parental Leave").joins(:project)}
+  scope :training,   -> { where("projects.name" => "Training").joins(:project)}
+  scope :iso_work,   -> { where("projects.name" => "ISO").joins(:project)}
+  scope :child_sick, -> { where("projects.name" => "Child sick").joins(:project)}
 
   before_save :set_tags_from_description
   before_save :value

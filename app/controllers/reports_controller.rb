@@ -26,6 +26,18 @@ class ReportsController < ApplicationController
       end
     end
   end
+  
+  def wage
+    respond_to do |format|
+      format.csv do
+        wage_csv(
+          name: "wage_report",
+          year:  params[:date][:year],
+          month: params[:date][:month]
+          )
+      end
+    end
+  end
 
   private
 
