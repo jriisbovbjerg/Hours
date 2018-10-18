@@ -142,22 +142,22 @@ counter =
 first.upto(last) do |date|
   unless date.saturday? || date.sunday?
     users.each do |user|
-      if rand(7) == 1
+      if rand(9) == 1
         type = 1
         proj = intprojects.sample
         cat = Category.first
       else
         type = 0
         proj = ordprojects.sample
-        cat = Category.all[2..-1].sample
+        cat = Category.all[1..-1].sample
       end
       Hour.create({ project: proj, user: user, value: 6.2 + (rand(100)/50.0), date: date, billed: false, description: "ref #{rand(100)/49.0}", category: cat})
       
-      if type == 0 && rand(6) == 1
+      if type == 0 && rand(7) == 1
         Expense.create({ project: proj, user: user, amount: rand(1000) + 100, date: date, billed: false, currency: rand(2)==1 ? "DKK" : "EUR", exchangerate: (3.3 + rand(713)) / (1.1 + rand(387) ), description: "description", supplier: "gl. Brugs"}
         )
       end
-      if type == 0 && rand(4) == 1
+      if type == 0 && rand(5) == 1
         Mileage.create({ project: proj, user: user, value: rand(250) + 25, date: date, billed: false, from_adress: "Alsvej, 4500 Kolding", to_adress: "Møllevej 5, 7000, Horsens", taxfree: rand(2)==1}
         )
       end
