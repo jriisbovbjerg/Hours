@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
+  before_filter :set_conversion_rates
 
+  
   protected
 
   def configure_permitted_parameters
@@ -20,6 +22,13 @@ class ApplicationController < ActionController::Base
 
   def after_invite_path_for(*)
     users_path
+  end
+
+  def set_conversion_rates
+    rates = Rails.cache.fetch "money:eu_central_bank_rates", expires_in: 24.hours do
+      Money.default_bank.save_rates_to_s
+    end
+    Money.default_bank.update_rates_from_s rates
   end
 
   private

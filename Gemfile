@@ -43,6 +43,7 @@ gem "holidays"
 gem "sprockets-rails", "~> 2.3"
 gem "brakeman"
 gem "eu_central_bank"
+gem 'money-rails', '~>1'
 
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs"
