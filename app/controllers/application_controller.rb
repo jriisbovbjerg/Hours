@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
-  before_filter :set_conversion_rates
-
+  before_filter :update_exchange_rates  
   
   protected
 
@@ -22,13 +21,6 @@ class ApplicationController < ActionController::Base
 
   def after_invite_path_for(*)
     users_path
-  end
-
-  def set_conversion_rates
-    rates = Rails.cache.fetch "money:eu_central_bank_rates", expires_in: 24.hours do
-      Money.default_bank.save_rates_to_s
-    end
-    Money.default_bank.update_rates_from_s rates
   end
 
   private
@@ -62,5 +54,12 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale =
       http_accept_language.compatible_language_from(I18n.available_locales)
+  end
+
+  def update_exchange_rates
+    rates = Rails.cache.fetch "money:eu_central_bank_rates", expires_in: 24.seconds do
+      Money.default_bank.save_rates_to_s
+    end
+    Money.default_bank.update_rates_from_s rates
   end
 end
