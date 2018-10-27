@@ -1,4 +1,6 @@
 #Cleanup
+puts "Start"
+
 User.destroy_all
 Client.destroy_all
 Project.destroy_all
@@ -35,12 +37,12 @@ File.open(user_data) do |file|
 end
 puts "Users done"
 
-own_client = Client.create({ name:         "BIIR", 
-                             companyname:  "BIIR Aps", 
-                             adress:       "Dusager 14", 
-                             postalcode:   "8200 Århus N", 
-                             otherinfo:    "Internal", 
-                             invoiceemail: "jbc@biir.com", 
+own_client = Client.create({ name:         "BIIR",
+                             companyname:  "BIIR Aps",
+                             adress:       "Dusager 14",
+                             postalcode:   "8200 Århus N",
+                             otherinfo:    "Internal",
+                             invoiceemail: "jbc@biir.com",
                              paymentterms: "NET OEM 30"
                            })
 
@@ -87,18 +89,20 @@ File.open(contacts_data) do |file|
 end
 puts "Contacts done"
 
-internalprojects = Project.create([{ name:"Parental Leave", client: own_client, description: "Parental leave", reference_number: "BIIR0008", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact},
-                                   { name:"Vacation",       client: own_client, description: "Vacation",       reference_number: "BIIR0007", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact},
-                                   { name:"Child sick",     client: own_client, description: "Child sick",     reference_number: "BIIR0006", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact},
-                                   { name:"Sick",           client: own_client, description: "Sick",           reference_number: "BIIR0005", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact},
-                                   { name:"ISO",            client: own_client, description: "ISO",            reference_number: "BIIR0004", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact},
-                                   { name:"Training",       client: own_client, description: "Training",       reference_number: "BIIR0003", billable: false, invoice_email: "jcb@biir.dk", valid_from: Date.ordinal(2018, 1), valid_to: Date.ordinal(2018, -1), currency: "DKK", contact_id: own_contact}
-                                 ])
+ Project.create([{ name:"Parental Leave", client: own_client, description: "Parental leave", reference_number: "BIIR0008", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                 { name:"Vacation",       client: own_client, description: "Vacation",       reference_number: "BIIR0007", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                 { name:"Child sick",     client: own_client, description: "Child sick",     reference_number: "BIIR0006", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                 { name:"Sick",           client: own_client, description: "Sick",           reference_number: "BIIR0005", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                 { name:"ISO",            client: own_client, description: "ISO",            reference_number: "BIIR0004", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                 { name:"Training",       client: own_client, description: "Training",       reference_number: "BIIR0003", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact}
+               ])
+
 projects_data = 'db/seed_data/Projects.csv'
 File.open(projects_data) do |file|
   CSV.parse(file, :headers => true, :col_sep => ",").each do |row|
     #ref_number,Customer,Customer Reference,Cur,Rate,Rate Period,PO Valid from,PO Valid untill,PO Status,Agreement Statement,Conditions 1a,Conditions 1b,Conditions 2a,Conditions 2b,Conditions 3a,Conditions 3b,Conditions 4a,Conditions 4b,Conditions 5a,Conditions 5b,Invoice mailadress,,"BiiR Engineer (DK individual or CORE-lead)",BiiR Init,BiiR Engineers Costumer Init,Notes
     row_hash = row.to_hash
+    puts row_hash["ref_number"]
     client = Client.where(name: row_hash["Customer"]).first
     contact = Contact.where(name: row_hash["Customer Reference"]).first
     Project.create({ name:             row_hash["ref_number"],
@@ -107,11 +111,10 @@ File.open(projects_data) do |file|
                      reference_number: row_hash["ref_number"] || "0000",
                      billable:         true,
                      invoice_email:    row_hash["Invoice mailadress"] || "missing",
-                     valid_from:       row_hash["PO Valid from"] || Date.ordinal(2018, 1),
-                     valid_to:         row_hash["PO Valid untill"] || Date.ordinal(2018, -1),
+                     valid_from:       row_hash["PO Valid from"].blank? ? Date.ordinal(2018, 1) : Date.strptime(row_hash["PO Valid from"], "%d/%m/%y"),
+                     valid_to:         row_hash["PO Valid untill"].blank? ? Date.ordinal(2018, -1) : Date.strptime(row_hash["PO Valid untill"], "%d/%m/%y"),
                      currency:         row_hash["Cur"] || "DKK",
                      contact:          contact
-
                     })
   end
 end
@@ -119,18 +122,18 @@ end
 
 puts "Projects done"
 
-categories = Category.create([{ name: "Administration"},
-                              { name: "Analyse"},
-                              { name: "Beregning"},
-                              { name: "Udvikling"},
-                              { name: "Rådgivning"},
-                              { name: "Test"}
-                            ])
+Category.create([{ name: "Administration"},
+                  { name: "Analyse"},
+                  { name: "Beregning"},
+                  { name: "Udvikling"},
+                  { name: "Rådgivning"},
+                  { name: "Test"}
+                ])
 
 puts "Categories done"
 
 first = Date.ordinal(2018, 1)
-last = Date.ordinal(2018, 275)
+last = Date.ordinal(2018, 260)
 
 intprojects = Project.where(client: own_client)
 puts "There is #{intprojects.count} internal projects"
@@ -138,7 +141,6 @@ ordprojects = Project.where.not(client: own_client)
 puts "There is #{ordprojects.count} external projects"
 
 users = User.all
-counter = 
 first.upto(last) do |date|
   unless date.saturday? || date.sunday?
     users.each do |user|
@@ -148,11 +150,11 @@ first.upto(last) do |date|
         cat = Category.first
       else
         type = 0
-        proj = ordprojects.sample
+        proj = ordprojects.active(date).sample
         cat = Category.all[1..-1].sample
       end
       Hour.create({ project: proj, user: user, value: 6.2 + (rand(100)/50.0), date: date, billed: false, description: "ref #{rand(100)/49.0}", category: cat})
-      
+
       if type == 0 && rand(7) == 1
         Expense.create({ project: proj, user: user, amount: rand(1000) + 100, date: date, billed: false, currency: rand(2)==1 ? "DKK" : "EUR", exchangerate: (3.3 + rand(713)) / (1.1 + rand(387) ), description: "description", supplier: "gl. Brugs"}
         )

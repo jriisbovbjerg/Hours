@@ -19,9 +19,13 @@ class User < ActiveRecord::Base
   has_many :projects, -> { uniq }, through: :hours
 
   scope :by_name, -> { order("lower(last_name)") }
-  
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def initials
+    email.split('@')[0]
   end
 
   alias_method :slug_source, :full_name

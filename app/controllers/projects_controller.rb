@@ -3,10 +3,7 @@ include TimeSeriesInitializer
 class ProjectsController < ApplicationController
   def index
     @projects = Project.unarchived.by_last_updated.page(params[:page]).per(7)
-    @hours_entry = Hour.new
-    @mileages_entry = Mileage.new
-    @expenses_entry = Expense.new
-    @activities = Hour.by_last_created_at.limit(30)
+    
   end
 
   def show
@@ -52,7 +49,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).
-      permit(:name, :billable, :client_id, :contact_id, 
+      permit(:name, :billable, :client_id, :contact_id,
              :archived, :description, :budget, :currency,
              :period, :valid_from, :valid_to, :invoice_email,
              :reference_number)

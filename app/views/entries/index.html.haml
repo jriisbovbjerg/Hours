@@ -1,9 +1,28 @@
 - content_for :page_title, @user.name
 .outer
   .container
-    - localized_cache @user do
-      = render "/header", title: t('entries.index.user_entries', user: @user.first_name)
-      = link_to t("entries.download_csv"), user_entries_path(@user, format: "csv", type: "general")
+    .new-entry-wrapper
+      %h2= t("entries.index.new")
+      .projects-tabs-container
+        %ul.accordion-tabs
+          %li.tab-header-and-content-left
+            %a.tab-link{href: "#hours"}= t("entries.index.hours")
+            #hours-tab.tab-content
+              %table.entries-table
+                = render partial: "application/hours_entry_form", locals: { form_title: t("entries.index.new_hours")  }
+          %li.tab-header-and-content-right.mileages
+            %a.tab-link{href: "#mileages"}= t("entries.index.mileages")
+            #mileages-tab.tab-content
+              %table.entries-table
+                = render partial: "application/mileages_entry_form", locals: { form_title: t("entries.index.new_mileages") }
+          %li.tab-header-and-content-right.expenses
+            %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
+            #expenses-tab.tab-content
+              %table.entries-table
+                = render partial: "application/expenses_entry_form", locals: { form_title: t("entries.index.new_expenses") }
+                
+    = render "/header", title: t('entries.index.user_entries', user: @user.first_name)
+    = link_to t("entries.download_csv"), user_entries_path(@user, format: "csv", type: "general")
     .entries-tabs-container
       %ul.accordion-tabs
         %li.tab-header-and-content-left

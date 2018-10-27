@@ -14,13 +14,13 @@ class Project < ActiveRecord::Base
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
-  
+
   belongs_to :client, touch: true
   belongs_to :contact, touch: true
-  
+
   scope :by_last_updated, -> { order("projects.updated_at DESC") }
   scope :by_name, -> { order("lower(name)") }
-
+  scope :active,  lambda { |date| where("? between valid_from AND valid_to", date) }
   scope :are_archived, -> { where(archived: true) }
   scope :unarchived, -> { where(archived: false) }
   scope :billable, -> { where(billable: true) }
@@ -31,13 +31,17 @@ class Project < ActiveRecord::Base
     end.reverse
   end
 
+  def active?(date: Date.today())
+    valid_from <= date && valid_to >= date
+  end
+
   def label
     name
   end
 
   def budget_status
     budget - hours.sum(:value) if budget
-  end  
+  end
 
   def has_billable_entries?
     hours.exists?(billed: false) ||
