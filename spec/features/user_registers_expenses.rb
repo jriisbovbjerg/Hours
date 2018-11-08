@@ -15,7 +15,7 @@ feature "User registers expenses" do
 
   context "with valid data" do
     scenario "full data" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content.expenses-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.expense")), with: 20
         fill_in "expense_date", with: "17/02/2015"
@@ -23,6 +23,7 @@ feature "User registers expenses" do
         fill_in "expense_supplier", with: "sup1"
         fill_in "expense_currency", with: "HUF"
         fill_in "expense_exchangerate", with: 7.46
+        
         click_button (I18n.t("helpers.submit.create"))
       end
       expect(page).to have_content(I18n.t("entry_created.expenses"))
@@ -32,7 +33,7 @@ feature "User registers expenses" do
   context "with invalid data" do
 
     scenario "blank text" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content.expenses-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.expense")), with: ""
         fill_in "expense_date", with: "17/02/2015"
@@ -45,7 +46,7 @@ feature "User registers expenses" do
     end
 
     scenario "missing currency" do
-      within ".tab-header-and-content-right" do
+      within ".tab-header-and-content.expenses-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.expense")), with: 20
         fill_in "expense_date", with: "17/02/2015"
@@ -53,10 +54,11 @@ feature "User registers expenses" do
         fill_in "expense_supplier", with: "sup1"
         fill_in "expense_currency", with: ""
         fill_in "expense_exchangerate", with: 7.46
-
+        
         click_button (I18n.t("helpers.submit.create"))
       end
-      I18n.t("activerecord.attributes.expense.currency") + " can't be blank. "
+      expect(page).to have_content(
+        I18n.t("activerecord.attributes.expense.currency") + " can't be blank.)
     end
   end
 end

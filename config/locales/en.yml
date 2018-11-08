@@ -58,6 +58,7 @@ en:
         value: "Hours"
       mileage:
         value: "Mileages"
+        to_adress: To Adress
       expense:
         value: "Expenses"
     errors:

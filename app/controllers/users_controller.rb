@@ -31,6 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def entries
+    redirect_to user_entries_path(current_user)
+  end
+
+
   private
 
   def resource

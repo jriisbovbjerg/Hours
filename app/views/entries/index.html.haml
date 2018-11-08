@@ -5,17 +5,17 @@
       %h2= t("entries.index.new")
       .projects-tabs-container
         %ul.accordion-tabs
-          %li.tab-header-and-content-left
+          %li.tab-header-and-content-left.hours-input
             %a.tab-link{href: "#hours"}= t("entries.index.hours")
             #hours-tab.tab-content
               %table.entries-table
                 = render partial: "application/hours_entry_form", locals: { form_title: t("entries.index.new_hours")  }
-          %li.tab-header-and-content-right.mileages
+          %li.tab-header-and-content.mileages-input
             %a.tab-link{href: "#mileages"}= t("entries.index.mileages")
             #mileages-tab.tab-content
               %table.entries-table
                 = render partial: "application/mileages_entry_form", locals: { form_title: t("entries.index.new_mileages") }
-          %li.tab-header-and-content-right.expenses
+          %li.tab-header-and-content.expenses-input
             %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
             #expenses-tab.tab-content
               %table.entries-table
@@ -25,19 +25,19 @@
     = link_to t("entries.download_csv"), user_entries_path(@user, format: "csv", type: "general")
     .entries-tabs-container
       %ul.accordion-tabs
-        %li.tab-header-and-content-left
+        %li.tab-header-and-content-left.hours-list
           %a.tab-link{href: "#hours"}= t("entries.index.hours")
           #hours-tab.tab-content
             %table.entries-table
               = render 'hours_table'
             = paginate @hours_entries, param_name: :hours_pages
-        %li.tab-header-and-content-right.mileages
+        %li.tab-header-and-content.mileages-list
           %a.tab-link{href: "#mileages"}= t("entries.index.mileages")
           #mileages-tab.tab-content
             %table.entries-table
               = render 'mileages_table'
             = paginate @mileages_entries, param_name: :mileages_pages
-        %li.tab-header-and-content-right.expenses
+        %li.tab-header-and-content.expenses-list
           %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
           #expenses-tab.tab-content
             %table.entries-table

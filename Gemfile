@@ -42,7 +42,9 @@ gem "redcarpet"
 gem "holidays"
 gem "sprockets-rails", "~> 2.3"
 gem "brakeman"
-gem "eu_central_bank"
+#gem "eu_central_bank"
+#gem 'currencylayer'
+gem 'money-currencylayer-bank'
 gem 'money-rails', '~>1'
 
 source "https://rails-assets.org" do
@@ -82,7 +84,7 @@ group :test do
   gem "shoulda-matchers", "~> 2.7.0"
   gem "simplecov", require: false
   gem "timecop"
-  gem "webmock"
+  gem "webmock", ">= 2.3"
 end
 
 group :staging, :production do
