@@ -11,6 +11,8 @@ class Project < ActiveRecord::Base
   has_many :mileages
   has_many :expenses
 
+  has_many :assignments
+
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
