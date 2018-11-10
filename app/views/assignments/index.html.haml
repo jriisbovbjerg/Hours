@@ -1,0 +1,7 @@
+.outer
+  .container
+    %h1= title
+    %hr/
+    %ul.assignment-overview= render partial: "assignment", collection: @assignments
+    %hr/
+    = render partial: "form"

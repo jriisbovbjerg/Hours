@@ -1,0 +1,16 @@
+= simple_form_for(@assignment) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.association :user, required: true, collection: User.by_name, placeholder: t("project.form.user")
+    
+    = f.association :project, required: true, collection: Project.by_name, placeholder: t("project.form.project")
+
+    = f.input :currency, required: true, collection: currency_codes, label: t("entries.index.currency-label-assignment"), placeholder: t("entries.index.currency")
+    
+    = f.input :valid_from, required: true, as: :string, input_html: { value: Date.today.beginning_of_month.next_month.strftime("%d/%m/%Y"), class: "datepicker"}
+    
+    = f.input :valid_to, required: true, as: :string, input_html: { value: Date.today.end_of_month.next_month.strftime("%d/%m/%Y"), class: "datepicker"}
+    
+    = f.input :hourly_rate, as: :decimal
+    
+    = f.button :submit, data: { disable_with: t("loader.saving") }
