@@ -2,7 +2,7 @@
   - localized_cache [project, current_locale] do
     - present project do |project_presenter|
       %li.container.project
-        %h2.project-title
+        %h4.project-title
           = link_to project_path(project) do
             = project.name
         %ul.tags-list
@@ -12,6 +12,10 @@
         - if project.client
           = link_to client_path(project.client), class: "clients-header" do
             = client_title(project.client)
+        - if project.valid_from
+          = "Project Valid from: " + project.valid_from.to_s
+        - if project.valid_to
+          = " - Valid To: " + project.valid_to.to_s
         - if project.budget
           .project-budget
             = t(:budget_html, budget_left: project.budget_status, budget: project.budget)
@@ -27,7 +31,4 @@
             = t(:project_activity_html, full_name: project.users.first.full_name, count: project.users.count, hours: EntryStats.new(project.hours).total_hours, project: project.name)
           - else
             = t(:no_hours_registered, project: project.name)
-          .active-people
-            - project.users.each do |user|
-              = render "application/avatar", user: user, easter: easter?
 = paginate projects

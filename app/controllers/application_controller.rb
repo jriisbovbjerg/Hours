@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
-
+  
+  
   protected
 
   def configure_permitted_parameters
@@ -54,4 +55,5 @@ class ApplicationController < ActionController::Base
     I18n.locale =
       http_accept_language.compatible_language_from(I18n.available_locales)
   end
+
 end

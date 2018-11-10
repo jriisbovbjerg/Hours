@@ -58,6 +58,7 @@ en:
         value: "Hours"
       mileage:
         value: "Mileages"
+        to_adress: To Adress
       expense:
         value: "Expenses"
     errors:
@@ -160,7 +161,10 @@ en:
       supplier: Supplier
       description: Description
       exhangerate: Exchangerate
+      exhangerate-hint: Enter the actual exchangerate used for the transaction
       currency: Currency
+      currency-label-project: Currency that shall be used for invoicing
+      currency-label-user: Currency that shall be used for wage and compensation
       expense: Amount
       expenses: Expenses
   entry_activity_html:
@@ -333,13 +337,11 @@ en:
     confirm: Confirm
     homeadress: Home Adress
     workadress: Work Adress
-    currency: Currency
     weeklyhours: Weekly work hours (Norm)
     update:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       updated: You updated your account successfully.
     hint:
-      currency: This is the currency your wage will be paid out in
       homeadress: usefull for calculation of mileages
       workadress: usefull for calculation of mileages
   entry_filters:

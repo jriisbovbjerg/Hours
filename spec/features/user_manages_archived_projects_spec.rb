@@ -19,7 +19,7 @@ feature "User manages archived projects" do
   scenario "display a list of archived projects" do
     project = create(:project, archived: true)
 
-    visit root_url(subdomain: subdomain)
+    visit projects_url(subdomain: subdomain)
     click_link I18n.t("titles.archives.index")
 
     expect(page).to have_content(project.name)
@@ -28,7 +28,7 @@ feature "User manages archived projects" do
   scenario "don't display un-archived projects on the list of archived projects" do
     project = create(:project, archived: false)
 
-    visit root_url(subdomain: subdomain)
+    visit projects_url(subdomain: subdomain)
     click_link I18n.t("titles.archives.index")
 
     expect(page).not_to have_content(project.name)
@@ -46,7 +46,7 @@ feature "User manages archived projects" do
   scenario "dont display archived projects on root" do
     project = create(:project, archived: true)
 
-    visit root_url(subdomain: subdomain)
+    visit projects_url(subdomain: subdomain)
     within ".project-list" do
       expect(page).not_to have_content(project.name)
     end

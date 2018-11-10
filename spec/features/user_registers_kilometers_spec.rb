@@ -15,7 +15,7 @@ feature "User registers kilometers" do
 
   context "with valid data" do
     scenario "full data" do
-      within ".tab-header-and-content-right.mileages" do
+      within ".tab-header-and-content.mileages-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: 20
         fill_in "mileage_date", with: "17/02/2015"
@@ -30,7 +30,7 @@ feature "User registers kilometers" do
 
   context "with invalid data" do
     scenario "doubles" do
-      within ".tab-header-and-content-right.mileages" do
+      within ".tab-header-and-content.mileages-input" do
         select conversations.name, from: I18n.t("entries.index.project")
         fill_in "mileage_value", with: 0.5
         fill_in "mileage_date", with: "01/02/2014"
@@ -42,10 +42,12 @@ feature "User registers kilometers" do
     end
 
     scenario "blank text" do
-      within ".tab-header-and-content-right.mileages" do
+      within ".tab-header-and-content.mileages-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: ""
         fill_in "mileage_date", with: "17/02/2015"
+        fill_in "mileage_from_adress", with: "vej 1"
+        fill_in "mileage_to_adress", with: "vej 2"
 
         click_button (I18n.t("helpers.submit.create"))
       end
@@ -55,16 +57,16 @@ feature "User registers kilometers" do
     end
 
     scenario "missing adress" do
-      within ".tab-header-and-content-right.mileages" do
+      within ".tab-header-and-content.mileages-input" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: 20
         fill_in "mileage_date", with: "17/02/2015"
         fill_in "mileage_from_adress", with: "vej 1"
-        fill_in "mileage_to_adress", with: ""
 
         click_button (I18n.t("helpers.submit.create"))
       end
-      I18n.t("activerecord.attributes.mileage.to_adress") + " can't be blank. "
+      expect(page).to have_content(
+        I18n.t("activerecord.attributes.mileage.to_adress") + " can't be blank")
     end
   end
 end

@@ -5,11 +5,15 @@ class EntriesController < ApplicationController
 
   def index
     @user = User.find_by_slug(params[:user_id])
+    @hours_entry = Hour.new
+    @mileages_entry = Mileage.new
+    @expenses_entry = Expense.new
     @hours_entries = @user.hours.by_date.page(params[:hours_pages]).per(20)
     @mileages_entries = @user.mileages.by_date.page(
       params[:mileages_pages]).per(20)
     @expenses_entries = @user.expenses.by_date.page(
       params[:expenses_pages]).per(20)
+    @activities = Hour.by_last_created_at.limit(30)
 
     respond_to do |format|
       format.html { @mileages_entries + @hours_entries + @expenses_entries}

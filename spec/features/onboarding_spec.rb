@@ -5,6 +5,7 @@ feature "Onboarding" do
     user = build(:user)
     create(:account_with_schema, subdomain: subdomain, owner: user)
     sign_in_user(user, subdomain: subdomain)
+    visit projects_url(subdomain: subdomain)
   end
 
   scenario "shows info on creating a new project when there aren't any" do
@@ -13,8 +14,7 @@ feature "Onboarding" do
 
   scenario "doesn't show info on creating new project when there are some" do
     create(:project)
-    visit root_path(subdomain: subdomain)
-
+    visit projects_url(subdomain: subdomain)
     expect(page).to have_no_content I18n.t("info.no_projects_html", new_project_path: I18n.t("info.here"))
   end
 
@@ -22,10 +22,9 @@ feature "Onboarding" do
     expect(page).to have_content I18n.t("info.no_categories_html", categories_path: I18n.t("info.here"))
   end
 
-  scenario "doesn't show info on creating new project when there are some" do
+  scenario "doesn't show info on creating new categories when there are some" do
     create(:project)
-    visit root_path(subdomain: subdomain)
-
+    create(:category)
     expect(page).to have_no_content I18n.t("info.categories", categories_path: I18n.t("info.here"))
   end
 

@@ -17,7 +17,7 @@ feature "User registers time" do
 
   context "without taggings" do
     scenario "track time for a project" do
-      within ".tab-header-and-content-left" do
+      within ".tab-header-and-content-left.hours-input" do
         fill_in_entry
         click_button (I18n.t("helpers.submit.create"))
       end
@@ -28,7 +28,7 @@ feature "User registers time" do
 
   context "with taggings" do
     scenario "track time for a project with tags" do
-      within ".tab-header-and-content-left" do
+      within ".tab-header-and-content-left.hours-input" do
         fill_in_entry
         fill_in "hour_description",
                 with: "Did some #pairprogramming with Hugo #internal"

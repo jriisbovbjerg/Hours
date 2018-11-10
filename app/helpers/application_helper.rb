@@ -88,7 +88,7 @@ module ApplicationHelper
       content
     end
   end
-  
+
   def easter?
     holiday = Holidays.on(Date.today, :nl)
     holiday[0][:name] == "Pasen" if holiday.any?
@@ -99,11 +99,19 @@ module ApplicationHelper
       where(project: project, billed: false)
   end
 
+  def currency_codes
+    currencies = []
+    Money::Currency.table.values.each do |currency|
+      currencies = currencies + [[currency[:iso_code] + ' - ' + currency[:name], currency[:iso_code]]]
+    end
+    currencies
+  end
+
   def show_check_icon(boolean_value)
-    if boolean_value then 
+    if boolean_value then
       "✓"
-    else 
+    else
       ""
-    end 
+    end
   end
 end
