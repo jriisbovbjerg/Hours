@@ -13,14 +13,16 @@ MoneyRails.configure do |config|
   # by default, they never expire, in this example 1 day.
   mclb.ttl_in_seconds = 86400
   
+  
+  tmpfile = Tempfile.new('bank_exchange_rates')
+  # Define cache (string or pathname)
+  mclb.cache = '/tmp/bank_tmpfile'
   # Update rates (get new rates from remote if expired or access rates from cache)
   mclb.update_rates
-  
+
   # Set default bank object
   config.default_bank = mclb
 
-  # Define cache (string or pathname)
-  #mclb.cache = 'path/to/file/cache'
 
 end
 
