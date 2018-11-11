@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
 
   def show
     @time_series = time_series_for(resource)
+    @assignments = Assignment.where(project: resource)
   end
 
   def edit

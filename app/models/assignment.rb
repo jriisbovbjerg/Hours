@@ -18,6 +18,6 @@ class Assignment < ActiveRecord::Base
   end
   
   def indentifier
-    "#{user.name} - #{project.name}/#{project.client.name} - #{valid_from}/#{valid_to}"
+    "#{user.name} - #{project.name}/#{project.client.name} - #{valid_from}/#{valid_to} - #{hourly_rate} #{currency}/hour"
   end
 end
