@@ -3,6 +3,18 @@
 .outer
   .container
     = render "/header", title: @user.full_name
+    %hr/
+    %h3 Assignments
+    %ol.assignments
+      - @user.assignments.each do |assignment|
+        %li 
+          = assignment.indentifier_with_user 
+          |
+          =link_to t("assignment.show_project"), project_path(assignment.project)
+          |
+          =link_to t("assignment.edit_assignemnt"), edit_assignment_path(assignment)
+          |
+    %hr/
     .charts
       = render @time_series.chart, time_series: @time_series
     .charts

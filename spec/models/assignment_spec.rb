@@ -14,8 +14,8 @@ describe Assignment do
     it { should belong_to :project }
   end
 
-  describe "#active assignments" do
-    it "shows active assignments" do
+  describe "#current assignments" do
+    it "shows current assignments" do
       create(:assignment)
       create(:assignment_in_past)
       create(:assignment_in_future)
@@ -23,8 +23,8 @@ describe Assignment do
     end
   end
 
-  describe "#recent assignments" do
-    it "shows recent assignments" do
+  describe "#current and recent assignments" do
+    it "shows current and recent assignments" do
       create(:assignment)
       create(:assignment_in_past)
       create(:assignment_in_future)

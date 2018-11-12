@@ -17,7 +17,11 @@ class Assignment < ActiveRecord::Base
     valid_from <= date && valid_to >= date
   end
   
-  def indentifier
-    "#{user.name} - #{project.name}/#{project.client.name} - #{valid_from}/#{valid_to} - #{hourly_rate} #{currency}/hour"
+  def indentifier_with_project
+    "#{user.name} - #{valid_from}/#{valid_to} - #{hourly_rate} #{currency}/hour"
+  end
+  
+  def indentifier_with_user
+    "#{project.name}/#{project.client.name} - #{valid_from}/#{valid_to} - #{hourly_rate} #{currency}/hour"
   end
 end
