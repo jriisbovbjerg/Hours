@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181110164711) do
+ActiveRecord::Schema.define(version: 20181114215503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,8 +192,10 @@ ActiveRecord::Schema.define(version: 20181110164711) do
     t.date     "valid_to"
     t.string   "invoice_email",    default: "",       null: false
     t.string   "reference_number", default: "",       null: false
+    t.boolean  "administrative"
   end
 
+  add_index "projects", ["administrative"], name: "index_projects_on_administrative", using: :btree
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["billable"], name: "index_projects_on_billable", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", using: :btree
