@@ -1,5 +1,10 @@
 = simple_form_for(@assignment) do |f|
   = f.error_notification
+  - if @assignment.errors.any?
+    %ul
+      - @assignment.errors.full_messages.each do |msg|
+        %li= msg
+
   .form-inputs
     = f.association :user, required: true, collection: User.by_name, placeholder: t("project.form.user")
     

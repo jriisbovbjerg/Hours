@@ -1,5 +1,5 @@
 class AssignmentsController < ApplicationController
-  before_action :find_assignment, only: [:edit, :update]
+  before_action :find_assignment, only: [:edit, :update, :destroy]
 
   def index
     @assignment = Assignment.new
@@ -27,6 +27,10 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @assignment.destroy
+    redirect_to assignments_path, notice: t(:assignment_deleted)
+  end
   private
 
   def find_assignment
