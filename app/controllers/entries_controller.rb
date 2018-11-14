@@ -5,6 +5,8 @@ class EntriesController < ApplicationController
 
   def index
     @user = User.find_by_slug(params[:user_id])
+    @projects = Assignment.by_user(@user).includes(:project).map(&:project).flatten
+    @projects = @projects + Project.administrative
     @hours_entry = Hour.new
     @mileages_entry = Mileage.new
     @expenses_entry = Expense.new

@@ -53,6 +53,6 @@ class ProjectsController < ApplicationController
       permit(:name, :billable, :client_id, :contact_id,
              :archived, :description, :budget, :currency,
              :period, :valid_from, :valid_to, :invoice_email,
-             :reference_number)
+             :reference_number, :administrative)
   end
 end

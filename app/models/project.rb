@@ -26,6 +26,7 @@ class Project < ActiveRecord::Base
   scope :are_archived, -> { where(archived: true) }
   scope :unarchived, -> { where(archived: false) }
   scope :billable, -> { where(billable: true) }
+  scope :administrative, -> { where(administrative: true) }
 
   def sorted_categories
     categories.sort_by do |category|
@@ -36,6 +37,8 @@ class Project < ActiveRecord::Base
   def active?(date: Date.today())
     valid_from <= date && valid_to >= date
   end
+  
+  
 
   def label
     name

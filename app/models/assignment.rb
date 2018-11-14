@@ -15,6 +15,7 @@ class Assignment < ActiveRecord::Base
   scope :exclude_self, -> id { where.not(id: id) }
   scope :current,  lambda { |date| where("? between valid_from AND valid_to", date) }
   scope :current_and_recent,  lambda { |date| where("valid_to > ? AND valid_from < ?", date - 35.days, date) }
+  scope :by_user, lambda { |user| where("user_id = ?", user) }
 
   def active?(date: Date.today())
     valid_from <= date && valid_to >= date
