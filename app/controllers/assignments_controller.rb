@@ -6,6 +6,12 @@ class AssignmentsController < ApplicationController
     @assignments = Assignment.all
   end
 
+  def new
+    @user = User.find_by_slug(params[:user]) 
+    @project = Project.find_by_slug(params[:project])
+    @assignment = Assignment.new(user: @user, project: @project)
+  end
+
   def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save

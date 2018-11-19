@@ -11,6 +11,7 @@ RUN apt-get update -yqq \
 
 WORKDIR /usr/src/app
 COPY Gemfile* ./
+RUN gem install bundler
 RUN bundle install
 COPY . .
 

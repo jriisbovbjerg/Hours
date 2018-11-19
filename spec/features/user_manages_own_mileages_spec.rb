@@ -56,15 +56,15 @@ feature "User manages their own mileage" do
     expect(page).to_not have_content("delete")
   end
 
-  let(:new_value) { "Not a number" }
-
   scenario "edits entry with wrong data" do
-    create(:mileage, user: user)
+    milage = create(:mileage, user: user)
+    expect(mileage).to be_valid
     new_project = create(:project)
+    expect(new_project).to be_valid
     new_value = "these are not valid kilometers"
     new_date = Date.current.strftime("%d/%m/%Y")
+    
     click_link I18n.t("navbar.entries")
-
     edit_entry(new_project, new_value, new_date)
 
     expect(page).to have_content("Something went wrong saving your entry")
@@ -75,7 +75,6 @@ feature "User manages their own mileage" do
   def edit_entry(new_project, new_mileages, new_date)
     click_link I18n.t("navbar.entries")
     click_link I18n.t("entries.index.edit")
-
     select(new_project.name, from: "mileage_project_id")
     fill_in "mileage_value", with: new_mileages
     fill_in "mileage_date", with: new_date

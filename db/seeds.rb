@@ -9,6 +9,7 @@ Category.destroy_all
 Expense.destroy_all
 Hour.destroy_all
 Mileage.destroy_all
+Assignment.destroy_all
 
 puts "Cleanup done"
 

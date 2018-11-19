@@ -5,6 +5,7 @@
     = render "/header", title: @user.full_name
     %hr/
     %h3 Assignments
+    =link_to t("assignment.new_assignemnt"), new_assignment_path(user: @user)
     %ol.assignments
       - @user.assignments.each do |assignment|
         %li 

@@ -4,7 +4,7 @@ resources :projects, only: [:index, :edit, :new, :update, :create, :show] do
   resources :audits, only: [:index]
 end
 resources :categories, only: [:index, :create, :edit, :update]
-resources :assignments, only: [:index, :create, :edit, :update, :destroy]
+resources :assignments, only: [:index, :new, :create, :edit, :update, :destroy]
 resources :entries, only: [:index]
 
 resources :hours, :mileages, :expenses, only: [:create, :destroy, :update, :edit, :patch]do

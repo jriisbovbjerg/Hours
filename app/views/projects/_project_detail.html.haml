@@ -16,6 +16,7 @@
       %p= markdown(project.description) if project.description
     %hr/
     %h3 Assignees
+    =link_to t("assignment.new_assignemnt"), new_assignment_path(project: project)
     %ol.assignments
       - project.assignments.each do |assignment|
         %li 
