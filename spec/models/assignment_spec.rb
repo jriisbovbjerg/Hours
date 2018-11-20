@@ -52,14 +52,6 @@ describe Assignment do
       create(:assignment_in_past)
       create(:assignment_in_future)
       expect(Assignment.current(1.day.ago).count).to eq 1
-    end
-  end
-
-  describe "#current and recent assignments" do
-    it "shows current and recent assignments" do
-      create(:assignment)
-      create(:assignment_in_past)
-      create(:assignment_in_future)
       expect(Assignment.current_and_recent(1.day.ago).count).to eq 2
     end
   end
@@ -70,9 +62,6 @@ describe Assignment do
       
     it 'should have a valid factory' do
       expect(assignment.errors).to be_empty
-    end
-
-    it 'should have a valid factory' do
       expect(assignment_overlapping.errors).to be_empty
     end
 
