@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: tags
-#
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  created_at :datetime
-#  updated_at :datetime
-#  slug       :string
-#
-
 describe Tag do
   describe "validations" do
     it { should validate_presence_of :name }

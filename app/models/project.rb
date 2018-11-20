@@ -11,6 +11,8 @@ class Project < ActiveRecord::Base
   has_many :mileages
   has_many :expenses
 
+  has_many :assignments
+
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
@@ -24,6 +26,7 @@ class Project < ActiveRecord::Base
   scope :are_archived, -> { where(archived: true) }
   scope :unarchived, -> { where(archived: false) }
   scope :billable, -> { where(billable: true) }
+  scope :administrative, -> { where(administrative: true) }
 
   def sorted_categories
     categories.sort_by do |category|
@@ -44,8 +47,7 @@ class Project < ActiveRecord::Base
   end
 
   def has_billable_entries?
-    hours.exists?(billed: false) ||
-      mileages.exists?(billed: false)
+    hours.exists?(billed: false) || mileages.exists?(billed: false)
   end
 
   private

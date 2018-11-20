@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "project#{n}" }
     billable false
     archived false
+    administrative true
 
     factory :project_with_hours do
       after(:create) do |project, _evaluator|
@@ -17,20 +18,3 @@ FactoryGirl.define do
     end
   end
 end
-# == Schema Information
-#
-# Table name: projects
-#
-#  id          :integer          not null, primary key
-#  name        :string           default(""), not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  slug        :string
-#  budget      :integer
-#  billable    :boolean          default("false")
-#  client_id   :integer
-#  archived    :boolean          default("false"), not null
-#  description :text
-#
-
-# Read about factories at https://github.com/thoughtbot/factory_girl

@@ -75,6 +75,8 @@ group :development, :test do
   gem "annotate"
   gem "letter_opener"
   gem "email_spec"
+  gem "debase"
+  gem "ruby-debug-ide"
 end
 
 group :test do

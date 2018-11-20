@@ -90,6 +90,8 @@ en:
     remaining: Other
   category_created: Category successfully created
   category_updated: Category successfully updated
+  assignment_created: Assignment successfully created
+  assignment_updated: Assignment successfully updated
   change_password: Change password
   charts:
     hours_per_day: Hours per day
@@ -165,6 +167,7 @@ en:
       currency: Currency
       currency-label-project: Currency that shall be used for invoicing
       currency-label-user: Currency that shall be used for wage and compensation
+      currency-label-assignment: Currency that the rate is set in
       expense: Amount
       expenses: Expenses
   entry_activity_html:
@@ -314,6 +317,10 @@ en:
       index: Categories
       new: New Category
       edit: Edit Category
+    assignments:
+      index: Assignments
+      new: New Assignment
+      edit: Edit Assignment
     clients:
       index: Clients
       new: New Client

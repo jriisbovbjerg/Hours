@@ -99,6 +99,12 @@ module ApplicationHelper
       where(project: project, billed: false)
   end
 
+  def users_projects(user)
+    projects = Assignment.by_user(user).includes(:project).map(&:project).flatten
+    projects = projects + Project.administrative
+    return projects
+  end
+
   def currency_codes
     currencies = []
     Money::Currency.table.values.each do |currency|

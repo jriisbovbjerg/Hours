@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023193154) do
+ActiveRecord::Schema.define(version: 20181114215503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,23 @@ ActiveRecord::Schema.define(version: 20181023193154) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "user_id",                                              null: false
+    t.integer  "project_id",                                           null: false
+    t.date     "valid_from",                                           null: false
+    t.date     "valid_to",                                             null: false
+    t.string   "currency",                             default: "DKK", null: false
+    t.decimal  "hourly_rate", precision: 10, scale: 2, default: 0.0,   null: false
+    t.boolean  "active",                               default: true,  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assignments", ["project_id"], name: "index_assignments_on_project_id", using: :btree
+  add_index "assignments", ["user_id"], name: "index_assignments_on_user_id", using: :btree
+  add_index "assignments", ["valid_from"], name: "index_assignments_on_valid_from", using: :btree
+  add_index "assignments", ["valid_to"], name: "index_assignments_on_valid_to", using: :btree
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -175,8 +192,10 @@ ActiveRecord::Schema.define(version: 20181023193154) do
     t.date     "valid_to"
     t.string   "invoice_email",    default: "",       null: false
     t.string   "reference_number", default: "",       null: false
+    t.boolean  "administrative"
   end
 
+  add_index "projects", ["administrative"], name: "index_projects_on_administrative", using: :btree
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["billable"], name: "index_projects_on_billable", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", using: :btree

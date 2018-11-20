@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :hours
   has_many :mileages
   has_many :expenses
+  has_many :assignments
   has_many :projects, -> { uniq }, through: :hours
 
   scope :by_name, -> { order("lower(last_name)") }

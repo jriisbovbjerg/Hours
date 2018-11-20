@@ -3,6 +3,7 @@ include TimeSeriesInitializer
 class UsersController < ApplicationController
   def show
     @time_series = time_series_for(resource)
+    @assignments = Assignment.where(user: resource)
   end
 
   def index

@@ -15,6 +15,18 @@
           = t(:budget_html, budget_left: project.budget_status, budget: project.budget)
       %p= markdown(project.description) if project.description
     %hr/
+    %h3 Assignees
+    =link_to t("assignment.new_assignemnt"), new_assignment_path(project: project)
+    %ol.assignments
+      - project.assignments.each do |assignment|
+        %li 
+          = assignment.indentifier_with_project
+          |
+          =link_to t("assignment.show_user"),       user_path(assignment.user)
+          |
+          =link_to t("assignment.edit_assignment"), edit_assignment_path(assignment)
+          |
+    %hr/
   .activities-overview
     %ol.activities
       = project_presenter.show_categories

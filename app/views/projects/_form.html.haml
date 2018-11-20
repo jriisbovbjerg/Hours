@@ -19,6 +19,10 @@
     = f.input :currency, required: true, collection: currency_codes, label: t("entries.index.currency-label-project"), placeholder: t("entries.index.currency")
     = f.label :billable
     = f.input :billable, as: :switch, label: false
+    
+    = f.label :administrative
+    = f.input :administrative, as: :switch, label: false
+    
     = f.button :submit, data: { disable_with: t("loader.saving") }
     
     - if !@project.audits.empty?

@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: categories
-#
-#  id         :integer          not null, primary key
-#  name       :string           default(""), not null
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 describe Category do
   describe "validations" do
     it { should validate_presence_of :name }
