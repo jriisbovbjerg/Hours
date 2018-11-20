@@ -57,10 +57,8 @@ feature "User manages their own mileage" do
   end
 
   scenario "edits entry with wrong data" do
-    milage = create(:mileage, user: user)
-    expect(mileage).to be_valid
+    mileage = create(:mileage, user: user)
     new_project = create(:project)
-    expect(new_project).to be_valid
     new_value = "these are not valid kilometers"
     new_date = Date.current.strftime("%d/%m/%Y")
     

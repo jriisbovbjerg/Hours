@@ -37,8 +37,6 @@ class Project < ActiveRecord::Base
   def active?(date: Date.today())
     valid_from <= date && valid_to >= date
   end
-  
-  
 
   def label
     name
@@ -49,8 +47,7 @@ class Project < ActiveRecord::Base
   end
 
   def has_billable_entries?
-    hours.exists?(billed: false) ||
-      mileages.exists?(billed: false)
+    hours.exists?(billed: false) || mileages.exists?(billed: false)
   end
 
   private

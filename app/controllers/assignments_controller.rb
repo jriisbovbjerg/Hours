@@ -37,6 +37,7 @@ class AssignmentsController < ApplicationController
     @assignment.destroy
     redirect_to assignments_path, notice: t(:assignment_deleted)
   end
+  
   private
 
   def find_assignment

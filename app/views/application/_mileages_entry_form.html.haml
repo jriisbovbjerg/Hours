@@ -1,6 +1,6 @@
 = simple_form_for @mileages_entry do |f|
   = f.error_notification
-  = f.association :project, required: true, collection: @projects, label: false, placeholder: t("entries.index.project")
+  = f.association :project, required: true, collection: users_projects(current_user), label: false, placeholder: t("entries.index.project")
   = f.input :value, required: true, as: :integer, label: false, placeholder: t("entries.index.mileages")
   = f.input :date, required: true, as: :string, input_html: { value: (@mileages_entry.date || DateTime.current).strftime("%d/%m/%Y"), class: "datepicker"}, label: false
   = f.input :from_adress, required: true, as: :string, label: false, placeholder: t("entries.index.from_adress")
