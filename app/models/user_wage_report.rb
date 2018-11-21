@@ -74,7 +74,8 @@ class UserWageReport
     "#{first} #{last}"
   end
 
-  def overtime(hours = 0)
+  def overtime(hours)
+    hours = hours.presence || 0
     overtime = hours - 160
     overtime > 0 ? overtime : ""
   end

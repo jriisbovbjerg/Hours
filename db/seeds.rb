@@ -2,14 +2,31 @@
 puts "Start"
 
 User.destroy_all
+puts "deleted Users"
+
 Client.destroy_all
+puts "deleted Clients"
+
 Project.destroy_all
+puts "deleted Projects"
+
 Contact.destroy_all
+puts "deleted Contacts"
+
 Category.destroy_all
+puts "deleted Categories"
+
 Expense.destroy_all
+puts "deleted Expenses"
+
 Hour.destroy_all
+puts "deleted Hours"
+
 Mileage.destroy_all
+puts "deleted Mileages"
+
 Assignment.destroy_all
+puts "deleted Assignemnts"
 
 puts "Cleanup done"
 
@@ -90,12 +107,12 @@ File.open(contacts_data) do |file|
 end
 puts "Contacts done"
 
- Project.create([{ name:"Parental Leave", client: own_client, description: "Parental leave", reference_number: "BIIR0008", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
-                 { name:"Vacation",       client: own_client, description: "Vacation",       reference_number: "BIIR0007", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
-                 { name:"Child sick",     client: own_client, description: "Child sick",     reference_number: "BIIR0006", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
-                 { name:"Sick",           client: own_client, description: "Sick",           reference_number: "BIIR0005", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
-                 { name:"ISO",            client: own_client, description: "ISO",            reference_number: "BIIR0004", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
-                 { name:"Training",       client: own_client, description: "Training",       reference_number: "BIIR0003", billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact}
+Project.create([{ name:"Parental Leave", client: own_client, description: "Parental leave", reference_number: "BIIR0008", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                { name:"Vacation",       client: own_client, description: "Vacation",       reference_number: "BIIR0007", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                { name:"Child sick",     client: own_client, description: "Child sick",     reference_number: "BIIR0006", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                { name:"Sick",           client: own_client, description: "Sick",           reference_number: "BIIR0005", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},
+                { name:"ISO",            client: own_client, description: "ISO",            reference_number: "BIIR0004", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact},                 
+                { name:"Training",       client: own_client, description: "Training",       reference_number: "BIIR0003", administrative: true, billable: false, invoice_email: "jcb@biir.dk", currency: "DKK", contact_id: own_contact}
                ])
 
 projects_data = 'db/seed_data/Projects.csv'
@@ -103,55 +120,85 @@ File.open(projects_data) do |file|
   CSV.parse(file, :headers => true, :col_sep => ",").each do |row|
     #ref_number,Customer,Customer Reference,Cur,Rate,Rate Period,PO Valid from,PO Valid untill,PO Status,Agreement Statement,Conditions 1a,Conditions 1b,Conditions 2a,Conditions 2b,Conditions 3a,Conditions 3b,Conditions 4a,Conditions 4b,Conditions 5a,Conditions 5b,Invoice mailadress,,"BiiR Engineer (DK individual or CORE-lead)",BiiR Init,BiiR Engineers Costumer Init,Notes
     row_hash = row.to_hash
-    puts row_hash["ref_number"]
     client = Client.where(name: row_hash["Customer"]).first
     contact = Contact.where(name: row_hash["Customer Reference"]).first
-    Project.create({ name:             row_hash["ref_number"],
-                     client:           client,
-                     description:      "-",
-                     reference_number: row_hash["ref_number"] || "0000",
-                     billable:         true,
-                     invoice_email:    row_hash["Invoice mailadress"] || "missing",
-                     valid_from:       row_hash["PO Valid from"].blank? ? Date.ordinal(2018, 1) : Date.strptime(row_hash["PO Valid from"], "%d/%m/%y"),
-                     valid_to:         row_hash["PO Valid untill"].blank? ? Date.ordinal(2018, -1) : Date.strptime(row_hash["PO Valid untill"], "%d/%m/%y"),
-                     currency:         row_hash["Cur"] || "DKK",
-                     contact:          contact
-                    })
+    project = Project.create({ name:             row_hash["ref_number"],
+                               client:           client,
+                               description:      "-",
+                               reference_number: row_hash["ref_number"] || "0000",
+                               billable:         true,
+                               invoice_email:    row_hash["Invoice mailadress"] || "missing",
+                               valid_from:       row_hash["PO Valid from"].blank? ? Date.ordinal(2018, 1) : Date.strptime(row_hash["PO Valid from"], "%d/%m/%y"),
+                               valid_to:         row_hash["PO Valid untill"].blank? ? Date.ordinal(2018, -1) : Date.strptime(row_hash["PO Valid untill"], "%d/%m/%y"),
+                               currency:         row_hash["Cur"] || "DKK",
+                               administrative:   false,
+                               contact:          contact
+                              })
+
   end
 end
 
 
 puts "Projects done"
 
+users = User.all
+projects = Project.where(administrative: false)
+
+count_of_projects = projects.count
+puts "count_of_projects = #{count_of_projects}"
+
+count_of_users = users.count
+puts "count_of_users = #{count_of_users}"
+
+user_per_project = (count_of_users / count_of_projects).ceil
+puts "user_per_project = #{user_per_project}"
+
+projects.each do |project|
+  (rand(-1..5) + user_per_project).times do |count|  
+    user = User.order("RANDOM()").first
+  
+    Assignment.create(user: user,
+                      project: project,
+                      valid_from: project.valid_from,
+                      valid_to: project.valid_to,
+                      hourly_rate: rand(50..1200),
+                      currency: ["EUR", "DKK"].sample
+                      )
+  end
+end
+
+puts "Assignments done"
+
 Category.create([{ name: "Administration"},
-                  { name: "Analyse"},
-                  { name: "Beregning"},
-                  { name: "Udvikling"},
-                  { name: "Rådgivning"},
-                  { name: "Test"}
-                ])
+                 { name: "Analyse"},
+                 { name: "Beregning"},
+                 { name: "Udvikling"},
+                 { name: "Rådgivning"},
+                 { name: "Test"}
+                 ])
 
 puts "Categories done"
 
-first = Date.ordinal(2018, 1)
-last = Date.ordinal(2018, 260)
+first = Date.ordinal(2017, 120)
+last = Date.ordinal(2018, 255)
 
-intprojects = Project.where(client: own_client)
-puts "There is #{intprojects.count} internal projects"
-ordprojects = Project.where.not(client: own_client)
-puts "There is #{ordprojects.count} external projects"
+admprojects = Project.where(administrative: true)
+puts "There is #{admprojects.count} administrative projects"
+
+client_projects = Project.where(administrative: false)
+puts "There is #{client_projects.count} external projects"
 
 users = User.all
 first.upto(last) do |date|
   unless date.saturday? || date.sunday?
     users.each do |user|
-      if rand(9) == 1
+      if rand(11) == 1
         type = 1
-        proj = intprojects.sample
+        proj = admprojects.sample
         cat = Category.first
       else
         type = 0
-        proj = ordprojects.active(date).sample
+        proj = Assignment.by_user(user).includes(:project).map(&:project).flatten.sample
         cat = Category.all[1..-1].sample
       end
       Hour.create({ project: proj, user: user, value: 6.2 + (rand(100)/50.0), date: date, billed: false, description: "ref #{rand(100)/49.0}", category: cat})
