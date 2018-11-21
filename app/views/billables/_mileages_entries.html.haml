@@ -5,14 +5,14 @@
       %input{ type: "checkbox", "data-project-id" => project.id, "data-entry_type" => "mileages", class: "bill-project" }
       = t("billables.table.billed")
     %th= t("billables.table.date")
-    %th
+    %th= t("billables.table.description")
     %th= t("entries.index.mileages")
     %th= t("billables.table.user")
   - project.mileages.where(billed: false).each do |mileage|
     %tr.info-row
       %td= billable_entry_checkbox(mileage, "mileages")
       %td= I18n.l (mileage.date)
-      %td
+      %td= mileage.description
       %td.center= mileage.value
       %td
         = link_to mileage.user do

@@ -98,6 +98,16 @@ module ApplicationHelper
     Hour.includes(:category, :user, :project).
       where(project: project, billed: false)
   end
+  
+  def billable_expenses_of(project)
+    Expense.includes(:user, :project).
+      where(project: project, billed: false)
+  end
+
+  def billable_mileages_of(project)
+    Mileage.includes(:user, :project).
+      where(project: project, billed: false)
+  end
 
   def users_projects(user)
     projects = Assignment.by_user(user).includes(:project).map(&:project).flatten

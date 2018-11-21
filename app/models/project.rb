@@ -47,7 +47,9 @@ class Project < ActiveRecord::Base
   end
 
   def has_billable_entries?
-    hours.exists?(billed: false) || mileages.exists?(billed: false)
+    [hours.exists?(billed: false),
+    mileages.exists?(billed: false),
+    expenses.exists?(billed: false)].any?
   end
 
   private

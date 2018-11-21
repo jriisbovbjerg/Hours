@@ -179,7 +179,7 @@ Category.create([{ name: "Administration"},
 
 puts "Categories done"
 
-first = Date.ordinal(2017, 120)
+first = Date.ordinal(2018, 200)
 last = Date.ordinal(2018, 255)
 
 admprojects = Project.where(administrative: true)
