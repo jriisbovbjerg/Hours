@@ -3,7 +3,6 @@ include TimeSeriesInitializer
 class ProjectsController < ApplicationController
   def index
     @projects = Project.unarchived.by_last_updated.page(params[:page]).per(7)
-    
   end
 
   def show

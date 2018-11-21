@@ -42,6 +42,10 @@ class Project < ActiveRecord::Base
     name
   end
 
+  def long_name
+    "#{name}  [#{client.name}]"
+  end
+
   def budget_status
     budget - hours.sum(:value) if budget
   end

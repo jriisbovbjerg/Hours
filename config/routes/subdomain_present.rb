@@ -13,7 +13,7 @@ end
 
 resources :reports, only: [:index]
 
-resources :billables, only: [:index]
+resources :billables, only: [:index, :show]
 
 resources :users, only: [:index, :update, :show] do
   resources :entries, only: [:index]

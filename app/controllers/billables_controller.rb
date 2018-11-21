@@ -1,6 +1,12 @@
 class BillablesController < ApplicationController
   def index
+    @filters = EntryFilter.new(params[:entry_filter])
+
     @projects = projects_with_billable_entries
+  end
+
+  def show 
+    resource
   end
 
   def bill_entries
@@ -11,11 +17,19 @@ class BillablesController < ApplicationController
     if params[:mileages_to_bill]
       Mileage.where(id: params[:mileages_to_bill]).update_all("billed = true")
     end
+
+    if params[:expensess_to_bill]
+      Expense.where(id: params[:expenses_to_bill]).update_all("billed = true")
+    end
     render json: nil, status: 200
   end
 
   private
 
+  def resource
+    @project ||= Project.find_by_slug(params[:id])
+  end
+  
   def projects_with_billable_entries
     billable_projects = Project.where(billable: true, archived: false)
 
