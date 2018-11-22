@@ -7,11 +7,20 @@
   = render "application/filters"
 .outer
   .container
-    %ul
-      - @projects.each do |project|
-        %li
-          = link_to project.name, billable_path(project)
-          = project.name
-          = project.unbilled_hours
-          = project.unbilled_mileages
-          = project.unbilled_expenses
+    %table.entries-table
+      %thead
+        %tr
+          %th= t("billables.index.project")
+          %th= t("billables.index.client")
+          %th= t("billables.index.hours")
+          %th= t("billables.index.mileages")
+          %th= t("billables.index.expenses")
+      %tbody
+        - @projects.each do |project|
+          - localized_cache [project, current_locale] do
+            %tr.info-row
+              %td= link_to project.name, billable_path(project)
+              %td= project.client.name
+              %td= project.unbilled_hours
+              %td= project.unbilled_mileages
+              %td= project.unbilled_expenses

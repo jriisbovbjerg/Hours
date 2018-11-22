@@ -9,6 +9,7 @@
         =t("billables.buttons.bill_selected")
     .billables
       .container
+        =link_to t("billables.show.back"), billables_path
         %h1= t("billables.billable_entries")
         = form_tag("/billables", method: "post", remote: true, id: "billable-entries-form", autocomplete: "off") do
           %header
