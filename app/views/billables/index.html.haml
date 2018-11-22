@@ -5,17 +5,13 @@
     =t("billables.buttons.bill_selected")
   %hr
   = render "application/filters"
-.billables
-  .outer
-    %h1= t("billables.billable_entries")
-    = form_tag("/billables", method: "post", remote: true, id: "billable-entries-form", autocomplete: "off") do
+.outer
+  .container
+    %ul
       - @projects.each do |project|
-        .container
-          %h1= link_to project.long_name, billable_path(project)
-          = t("entries.index.bill_all_hours")
-          %input{ type: "checkbox", "data-project-id" => project.id, "data-entry_type" => "hours", class: "bill-project" }
-          = t("entries.index.bill_all_mileages")
-          %input{ type: "checkbox", "data-project-id" => project.id, "data-entry_type" => "mileages", class: "bill-project" }
-          = t("entries.index.bill_all_expenses")
-          %input{ type: "checkbox", "data-project-id" => project.id, "data-entry_type" => "expenses", class: "bill-project" }
-      %button#submit-billable-entries-test= t("billables.buttons.bill_selected")
+        %li
+          = link_to project.name, billable_path(project)
+          = project.name
+          = project.unbilled_hours
+          = project.unbilled_mileages
+          = project.unbilled_expenses

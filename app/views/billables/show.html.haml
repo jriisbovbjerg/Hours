@@ -9,10 +9,13 @@
         =t("billables.buttons.bill_selected")
     .billables
       .container
-        %header
-          %h1= link_to @project.long_name, project_path(@project)
-          .reports-tabs-container
-            %ul.accordion-tabs
-              = render partial: "hours_entries", locals: { project: @project }
-              = render partial: "mileages_entries", locals: { project: @project }
-              = render partial: "expenses_entries", locals: { project: @project }
+        %h1= t("billables.billable_entries")
+        = form_tag("/billables", method: "post", remote: true, id: "billable-entries-form", autocomplete: "off") do
+          %header
+            %h1= link_to @project.long_name, project_path(@project)
+            .reports-tabs-container
+              %ul.accordion-tabs
+                = render partial: "hours_entries", locals: { project: @project }
+                = render partial: "mileages_entries", locals: { project: @project }
+                = render partial: "expenses_entries", locals: { project: @project }
+          %button#submit-billable-entries-test= t("billables.buttons.bill_selected")

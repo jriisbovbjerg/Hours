@@ -56,6 +56,18 @@ class Project < ActiveRecord::Base
     expenses.exists?(billed: false)].any?
   end
 
+  def unbilled_hours
+    hours.where(billed: false).sum(:value)
+  end
+  
+  def unbilled_mileages
+    mileages.where(billed:false).sum(:value)
+  end
+
+  def unbilled_expenses
+    expenses.where(billed:false).sum(:value)
+  end
+
   private
 
   def slug_source
