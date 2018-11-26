@@ -11,7 +11,7 @@ class BillablesController < ApplicationController
 
   def bill_entries
     invoice = Invoice.new.generate(params)
-    pp invoice
+    
     if params[:hours_to_bill]
       Hour.where(id: params[:hours_to_bill]).update_all("billed = true")
     end

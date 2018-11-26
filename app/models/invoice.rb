@@ -41,10 +41,12 @@ class Invoice < ActiveRecord::Base
     extended_hours = []
     hours.each do |hour|
       hr = Hour.find(hour)
-      assign = Assignment.where(user: hr.user.id, project: project.id).last
+      assign = Assignment.where(user: hr.user.id, project: project.id).at_date(hr.date)
+      
       project_rate = settle_currency(assign.hourly_rate, assign.currency, project.currency)
       total = hr.value * project_rate.to_f
-      extended_hours << {"hours":hr.value.to_f,
+      extended_hours << {"date":hr.date,
+                          "hours":hr.value.to_f,
                           "who":hr.user.name,
                           "hourly_rate":project_rate.to_f,
                           "total":total.to_f}
