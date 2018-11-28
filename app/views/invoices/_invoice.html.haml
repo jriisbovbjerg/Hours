@@ -1,0 +1,7 @@
+%li
+  .project
+    %span.color{:style => "background-color:#{};"}
+    %span= invoice.name
+    %span= invoice.dates
+    %span
+      (#{link_to t("invoice.edit"), edit_invoice_path(invoice)})

@@ -41,7 +41,15 @@ class Hour < Entry
   def self.query(params, includes = nil)
     EntryQuery.new(self.includes(includes).by_date, params, "hours").filter
   end
+  
+  def first_date(data)
+    6.day.ago
+  end
 
+  def last_date(data)
+    Date.today
+  end
+  
   def value=(value)
     entry = value
     

@@ -158,14 +158,19 @@ ActiveRecord::Schema.define(version: 20181123195631) do
   add_index "hours", ["user_id"], name: "index_hours_on_user_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
+    t.string   "name",                    null: false
+    t.date     "from_date",               null: false
+    t.date     "to_date",                 null: false
     t.integer  "project_id",              null: false
     t.jsonb    "payload",    default: {}, null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
 
+  add_index "invoices", ["from_date"], name: "index_invoices_on_from_date", using: :btree
   add_index "invoices", ["payload"], name: "index_invoices_on_payload", using: :gin
   add_index "invoices", ["project_id"], name: "index_invoices_on_project_id", using: :btree
+  add_index "invoices", ["to_date"], name: "index_invoices_on_to_date", using: :btree
 
   create_table "mileages", force: :cascade do |t|
     t.integer  "project_id",                  null: false

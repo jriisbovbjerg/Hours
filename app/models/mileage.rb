@@ -19,6 +19,14 @@ class Mileage < Entry
     "#{from_adress} -> #{to_adress}"
   end
   
+  def first_date(data)
+    4.day.ago
+  end
+
+  def last_date(data)
+    Date.today
+  end
+
   def self.query(params, includes = nil)
     EntryQuery.new(self.includes(includes).by_date, params, "mileages").filter
   end

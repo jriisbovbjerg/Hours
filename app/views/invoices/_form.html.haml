@@ -1,6 +1,8 @@
-= simple_form_for(@category) do |f|
+= simple_form_for(@invoice) do |f|
   = f.error_notification
   .form-inputs
     = f.input :name, required: true, autofocus: true
+    = f.input :from_date
+    = f.input :to_date
     = f.button :submit, data: { disable_with: t("loader.saving") }
     

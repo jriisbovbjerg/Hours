@@ -28,6 +28,14 @@ class Expense < Entry
     end
   end
 
+  def first_date(data)
+    5.day.ago
+  end
+
+  def last_date(data)
+    Date.today
+  end
+
   def receipt_url
     receipt.url(:original)
   end
