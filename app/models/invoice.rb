@@ -85,7 +85,7 @@ class Invoice < ActiveRecord::Base
       hourly_rate = arr.first[:hourly_rate]
       total_sum = arr.inject(0) {|sum, hash| sum + hash[:total]}
       hours_sum = arr.inject(0) {|sum, hash| sum + hash[:hours]}
-      summary_array << {:who => who, :hourly_rate => hourly_rate, :total => total_sum, :hours => hours_sum}
+      summary_array << {:who => who, :rate => hourly_rate, :total => total_sum, :hours => hours_sum}
     end
     return summary_array
   end
@@ -99,7 +99,7 @@ class Invoice < ActiveRecord::Base
                             :what => ex.description,
                             :who => ex.user.name}
     end
-    summary_expenses = condense_expenses(detailed_expenses)
+    summary_expenses = detailed_expenses
     return {:detailed => detailed_expenses,
             :summary => summary_expenses}
   end
@@ -138,15 +138,12 @@ class Invoice < ActiveRecord::Base
     summary = data.group_by { |item| item[:who] }.values
     summary.each do |arr|
       who = arr.first[:who]
+      rate = arr.first[:rate]
       total_sum = arr.inject(0) {|sum, hash| sum + hash[:total] }
       total_dist = arr.inject(0) {|sum, hash| sum + hash[:distance] }
-      summary_array << {:who => who, :total => total_sum, :distance => total_dist }
+      summary_array << {:who => who, :rate => rate, :total => total_sum, :distance => total_dist }
     end
     return summary_array
-  end
-
-  def timestamp
-    Time.now.strftime('%Y%m%d%H%M%S')
   end
 
   def settle_currency(rate, from_currency, to_currency)

@@ -19,7 +19,7 @@ resources :users, only: [:index, :update, :show] do
   resources :entries, only: [:index]
 end
 
-resources :invoices, only: [:index, :update, :edit]
+resources :invoices, only: [:index, :update, :edit, :show]
 resources :tags, only: [:show]
 resources :clients, only: [:show, :index, :edit, :update, :create]
 resources :contacts, only: [:show, :index, :edit, :update, :create]

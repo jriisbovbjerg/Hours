@@ -19,6 +19,20 @@ class InvoicesController < ApplicationController
   def edit
   end
 
+  def show
+    find_invoice
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = InvoicesPdf.new(@invoice)
+        send_data pdf.render, filename:      "#{timestamp}-#{@invoice.name}-#{@invoice.dates}.pdf",
+                                type:        "application/pdf",
+                                page_size:   "A4",
+                                disposition: "inline"
+      end
+    end
+  end
+
   def update
     if @invoice.update(invoice_params)
       redirect_to invoices_path, notice: t(:invoice_updated)
@@ -28,6 +42,10 @@ class InvoicesController < ApplicationController
   end
 
   private
+  
+  def timestamp
+    Time.now.strftime('%Y%m%d%H%M%S')
+  end
 
   def find_invoice
     @invoice = Invoice.find(params[:id])

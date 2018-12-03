@@ -1,5 +1,6 @@
 module ApplicationHelper
   include Twitter::Autolink
+  include ActionView::Helpers::NumberHelper
 
   def autolink_tags(text)
     auto_link(text, hashtag_url_base: "/tags/", hashtag_class: "hashtag")
@@ -20,6 +21,7 @@ module ApplicationHelper
     yield presenter if block_given?
     presenter
   end
+
 
   def contact_title(contact)
     html = ""
@@ -130,4 +132,5 @@ module ApplicationHelper
       ""
     end
   end
+
 end

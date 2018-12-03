@@ -5,3 +5,5 @@
     %span= invoice.dates
     %span
       (#{link_to t("invoice.edit"), edit_invoice_path(invoice)})
+    %span
+      (#{link_to t("invoice.show"), invoice_path(invoice)})

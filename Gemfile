@@ -42,10 +42,11 @@ gem "redcarpet"
 gem "holidays"
 gem "sprockets-rails", "~> 2.3"
 gem "brakeman"
-#gem "eu_central_bank"
-#gem 'currencylayer'
 gem 'money-currencylayer-bank'
 gem 'money-rails', '~>1'
+gem 'prawn'
+gem 'prawn-table'
+gem 'responders'
 
 source "https://rails-assets.org" do
   gem "rails-assets-chartjs"
