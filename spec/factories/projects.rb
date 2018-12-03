@@ -3,6 +3,8 @@ FactoryGirl.define do
     sequence(:name) { |n| "project#{n}" }
     billable false
     archived false
+    valid_from "2015-02-26 22:06:47"
+    valid_to "2018-02-26 22:06:47"
     administrative true
 
     factory :project_with_hours do

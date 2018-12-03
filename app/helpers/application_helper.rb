@@ -125,11 +125,11 @@ module ApplicationHelper
     currencies
   end
 
-  def show_check_icon(boolean_value)
+    def show_check_icon(boolean_value)
     if boolean_value then
       "✓"
     else
-      ""
+      "-"
     end
   end
 

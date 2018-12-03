@@ -5,27 +5,9 @@
         %div
           = link_to edit_project_path(project) do
             = t("project.show.edit_link")
-      = link_to project_path(project) do
-        %h2= project.name
-      - if project.client
-        = link_to client_path(project.client), class: "clients-header" do
-          = client_title(project.client)
-      - if project.budget
-        .project-budget
-          = t(:budget_html, budget_left: project.budget_status, budget: project.budget)
-      %p= markdown(project.description) if project.description
+    = render partial: "project_spec", locals: { project: @project }
     %hr/
-    %h3 Assignees
-    =link_to t("assignment.new_assignemnt"), new_assignment_path(project: project)
-    %ol.assignments
-      - project.assignments.each do |assignment|
-        %li 
-          = assignment.indentifier_with_project
-          |
-          =link_to t("assignment.show_user"),       user_path(assignment.user)
-          |
-          =link_to t("assignment.edit_assignment"), edit_assignment_path(assignment)
-          |
+    = render partial: "project_assignees", locals: {project: @project }
     %hr/
   .activities-overview
     %ol.activities

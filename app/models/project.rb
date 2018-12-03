@@ -33,6 +33,18 @@ class Project < ActiveRecord::Base
       EntryStats.new(hours, category).percentage_for_subject
     end.reverse
   end
+  
+  def dates
+    "From: #{valid_from_fmt} - To: #{valid_to_fmt}"
+  end
+
+  def valid_from_fmt
+    valid_from.to_formatted_s(:rfc822)
+  end
+
+  def valid_to_fmt
+    valid_to.to_formatted_s(:rfc822)
+  end
 
   def active?(date: Date.today())
     valid_from <= date && valid_to >= date
