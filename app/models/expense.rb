@@ -28,12 +28,12 @@ class Expense < Entry
     end
   end
 
-  def first_date(data)
-    5.day.ago
+  def self.last_date(ids)
+    where(id: ids).maximum(:date)
   end
 
-  def last_date(data)
-    Date.today
+  def self.first_date(ids)
+    where(id: ids).minimum(:date)
   end
 
   def receipt_url

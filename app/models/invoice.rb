@@ -30,8 +30,9 @@ class Invoice < ActiveRecord::Base
     self.payload["expenses"] = params["expenses_to_bill"].blank? ? "{}" : extend_expenses(params["expenses_to_bill"])
     self.payload["mileages"] = params["mileages_to_bill"].blank? ? "{}" : extend_mileages(params["mileages_to_bill"])
     self.name = "#{client.name}-#{project.name}"
-    self.from_date = Date.today #get_first_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] ) 
-    self.to_date = Date.today #get_last_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] )
+    byebug
+    self.from_date = get_first_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] ) 
+    self.to_date = get_last_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] )
     self.save!
   end
 
@@ -54,9 +55,12 @@ class Invoice < ActiveRecord::Base
             "invoice_email":"#{project.invoice_email}"}
   end
 
-  def get_first_and_last_date(hours, expenses, mileages)
-    first_date = min(first_date(hours), first_date(expenses), first_date(mileages))
-    last_date = max(last_date(hours), last_date(expenses), last_date(mileages))
+  def get_first_date(hours, expenses, mileages)
+    first_date = [Hour.first_date(hours), Expense.first_date(expenses), Mileage.first_date(mileages)].min
+  end
+
+  def get_last_date(hours, expenses, mileages)
+    last_date = [Hour.last_date(hours), Expense.last_date(expenses), Mileage.last_date(mileages)].max
   end
   
   def extend_hours(hours)

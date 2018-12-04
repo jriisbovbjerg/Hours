@@ -19,12 +19,12 @@ class Mileage < Entry
     "#{from_adress} -> #{to_adress}"
   end
   
-  def first_date(data)
-    4.day.ago
+  def self.last_date(ids)
+    where(id: ids).maximum(:date)
   end
 
-  def last_date(data)
-    Date.today
+  def self.first_date(ids)
+    where(id: ids).minimum(:date)
   end
 
   def self.query(params, includes = nil)

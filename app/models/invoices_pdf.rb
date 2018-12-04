@@ -3,16 +3,21 @@ class InvoicesPdf < Prawn::Document
 
   def initialize(invoice)
     super()
+    register_font
     @invoice = invoice
     upper_logo
     client(@invoice.payload["client"])
-    project(@invoice.payload["project"])
     invoice_details
+    project(@invoice.payload["project"])
+    move_cursor_to 480
     table(invoice_lines(@invoice.payload),
                         :column_widths => [60, 40, 290, 70, 80],
                         :header => true, 
                         :row_colors => ["EFEFEF", "FEFEFE"]) do
        cells.borders = []
+       column(0).align = :right
+       column(-1).align = :right
+       column(-2).align = :right
        row(0).background_color = "CCCCCC"
        row(0).borders = [:bottom]
        row(-5).background_color = "FFFFFF"
@@ -44,7 +49,7 @@ class InvoicesPdf < Prawn::Document
   end
 
   def client(info)
-    bounding_box([20, 650], :width => 200, :height => 60) do
+    bounding_box([20, 650], :width => 230, :height => 70) do
       text "#{info["companyname"]}"
       text "#{info["adress"]}"
       text "#{info["postalcode"]}"
@@ -53,16 +58,17 @@ class InvoicesPdf < Prawn::Document
   end
 
   def project(info)
-    bounding_box([20, 570], :width => 200, :height => 60) do
+    bounding_box([20, 570], :width => 230, :height => 90) do
       text "Your Ref.: #{info["contact"]}"
+      text "Currency: #{info["currency"]}"
       text "PO.:       #{info["PO"]}"
-      text "WBS"
+      text "WBS:"
       text "Our ref.: Jonas Bojer Christensen"
     end
   end
 
   def invoice_details
-    bounding_box([360, 600], :width => 180, :height => 110) do
+    bounding_box([370, 690], :width => 180, :height => 110) do
       text "INVOICE", :style => :bold
       text "Invoice No.: 008"
       text "Invoice Date: 30/11/2018"
@@ -118,12 +124,6 @@ class InvoicesPdf < Prawn::Document
     table_data << [ "", "", "Total amount", "EUR", number_with_precision(1.25 * grand_total, precision: 2, separator: ',', delimiter: '.') ]
     return table_data
   end
-  
-  #def invoice_sum(total)
-  #  table_data = []
-#
- #   return table_data
-  #end
 
   def bank_details
     move_down 50
@@ -141,4 +141,13 @@ class InvoicesPdf < Prawn::Document
     end
   end
 
+  def register_font
+    font_path = "#{Rails.root}/app/assets/fonts/"
+    font_families.update("OpenSans" => {
+      :normal => "#{font_path}OpenSans-Regular.ttf",
+      :italic => "#{font_path}OpenSans-Italic.ttf",
+      :bold => "#{font_path}OpenSans-Bold.ttf",
+      :bold_italic => "#{font_path}OpenSans-BoldItalic.ttf"})
+    font "OpenSans"
+  end
 end 

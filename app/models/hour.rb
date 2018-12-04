@@ -42,12 +42,12 @@ class Hour < Entry
     EntryQuery.new(self.includes(includes).by_date, params, "hours").filter
   end
   
-  def first_date(data)
-    6.day.ago
+  def self.last_date(ids)
+    where(id: ids).maximum(:date)
   end
 
-  def last_date(data)
-    Date.today
+  def self.first_date(ids)
+    where(id: ids).minimum(:date)
   end
   
   def value=(value)
