@@ -4,5 +4,6 @@
     = f.input :name, required: true, autofocus: true
     = f.input :from_date
     = f.input :to_date
+    = f.input :payload, as: :text
     = f.button :submit, data: { disable_with: t("loader.saving") }
     

@@ -1,6 +1,5 @@
 module ApplicationHelper
   include Twitter::Autolink
-  include ActionView::Helpers::NumberHelper
 
   def autolink_tags(text)
     auto_link(text, hashtag_url_base: "/tags/", hashtag_class: "hashtag")

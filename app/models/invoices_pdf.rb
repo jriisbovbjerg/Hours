@@ -11,32 +11,35 @@ class InvoicesPdf < Prawn::Document
     project(@invoice.payload["project"])
     move_cursor_to 480
     table(invoice_lines(@invoice.payload),
-                        :column_widths => [60, 40, 290, 70, 80],
-                        :header => true, 
-                        :row_colors => ["EFEFEF", "FEFEFE"]) do
-       cells.borders = []
-       column(0).align = :right
-       column(-1).align = :right
-       column(-2).align = :right
-       row(0).background_color = "CCCCCC"
-       row(0).borders = [:bottom]
-       row(-5).background_color = "FFFFFF"
-       row(-5).borders = [:top]
+              :column_widths => [60, 40, 290, 70, 80],
+              :header => true, 
+              :row_colors => ["EFEFEF", "FEFEFE"]) do
+                 cells.borders = []
 
-       row(-4).background_color = "EEEEEE"
-       row(-4).align = :right
+                 column(0).align = :right
+                 column(-1).align = :right
+                 column(-2).align = :right
+                 
+                 row(0).background_color = "CCCCCC"
+                 row(0).borders = [:bottom]
+                 
+                 row(-5).background_color = "FFFFFF"
+                 row(-5).borders = [:top]
 
-       row(-3).background_color = "DDDDDD"
-       row(-3).align = :right
+                 row(-4).background_color = "EEEEEE"
+                 row(-4).align = :right
 
-       row(-2).background_color = "EEEEEE"
-       row(-2).align = :right
+                 row(-3).background_color = "DDDDDD"
+                 row(-3).align = :right
 
-       row(-1).background_color = "AAAAAA"
-       row(-1).font_style = :bold
-       row(-1).align = :right
-       row(-1).borders = [:top]
-    end
+                 row(-2).background_color = "EEEEEE"
+                 row(-2).align = :right
+
+                 row(-1).background_color = "AAAAAA"
+                 row(-1).font_style = :bold
+                 row(-1).align = :right
+                 row(-1).borders = [:top]
+              end
 
     bank_details
     footer
@@ -60,7 +63,6 @@ class InvoicesPdf < Prawn::Document
   def project(info)
     bounding_box([20, 570], :width => 230, :height => 90) do
       text "Your Ref.: #{info["contact"]}"
-      text "Currency: #{info["currency"]}"
       text "PO.:       #{info["PO"]}"
       text "WBS:"
       text "Our ref.: Jonas Bojer Christensen"
@@ -98,7 +100,7 @@ class InvoicesPdf < Prawn::Document
     mileages = info["mileages"]["summary"]
     unless mileages.blank?
       mileages.each_with_index do |h, i|
-        quant = number_with_precision(h["distance"], precision: 2, separator: ',', delimiter: '.') 
+        quant = number_with_precision(h["distance"], precision: 0, separator: ',', delimiter: '.') 
         desc = "#{h["who"]}, #{h["description"]}"
         rate = number_with_precision(h["rate"], precision: 2, separator: ',', delimiter: '.')
         tot = number_with_precision((h["distance"] * h["rate"]), precision: 2, separator: ',', delimiter: '.')
@@ -110,18 +112,19 @@ class InvoicesPdf < Prawn::Document
     expenses = info["expenses"]["summary"]
     unless expenses.blank? 
       expenses.each_with_index do |h, i|
-        desc = "#{h["who"]}, #{h["what"]}"
+        count = h["count"]
+        desc = "Expenses, #{h["who"]} "
         tot = number_with_precision(h["total"], precision: 2, separator: ',', delimiter: '.')
         grand_total += h["total"]
-        table_data << ["1", "pcs", desc, tot, tot]
+        table_data << [count, "pcs", desc, tot, tot]
       end
     end
-    #table_data << invoice_sum(grand_total)  
+    currency = info["project"]["currency"]
     table_data << [ " ", "", "","", "" ]
-    table_data << [ "", "", "Sub total", "EUR", number_with_precision(grand_total, precision: 2, separator: ',', delimiter: '.') ]
-    table_data << [ "", "", "Subject to VAT", "EUR", number_with_precision(grand_total, precision: 2, separator: ',', delimiter: '.') ]
-    table_data << [ "", "", "VAT 25%", "EUR", number_with_precision(0.25 * grand_total, precision: 2, separator: ',', delimiter: '.') ]
-    table_data << [ "", "", "Total amount", "EUR", number_with_precision(1.25 * grand_total, precision: 2, separator: ',', delimiter: '.') ]
+    table_data << [ "", "", "Sub total", currency, number_with_precision(grand_total, precision: 2, separator: ',', delimiter: '.') ]
+    table_data << [ "", "", "Subject to VAT", currency, number_with_precision(grand_total, precision: 2, separator: ',', delimiter: '.') ]
+    table_data << [ "", "", "VAT 25%", currency, number_with_precision(0.25 * grand_total, precision: 2, separator: ',', delimiter: '.') ]
+    table_data << [ "", "", "Total amount", currency, number_with_precision(1.25 * grand_total, precision: 2, separator: ',', delimiter: '.') ]
     return table_data
   end
 

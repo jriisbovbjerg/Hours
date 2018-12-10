@@ -14,6 +14,9 @@ class Invoice < ActiveRecord::Base
   def dates
     return " [#{from_date} -> #{to_date}] "
   end
+  def nice_dates
+    return "#{from_date.to_formatted_s(:rfc822)} - #{to_date.to_formatted_s(:rfc822)}"
+  end
   
   def to_s
     name
@@ -29,10 +32,12 @@ class Invoice < ActiveRecord::Base
     self.payload["hours"]    = params["hours_to_bill"].blank? ? "{}" : extend_hours(params["hours_to_bill"])
     self.payload["expenses"] = params["expenses_to_bill"].blank? ? "{}" : extend_expenses(params["expenses_to_bill"])
     self.payload["mileages"] = params["mileages_to_bill"].blank? ? "{}" : extend_mileages(params["mileages_to_bill"])
-    self.name = "#{client.name}-#{project.name}"
-    byebug
+    
+    self.name = "#{client.name} - #{project.name}"
+    
     self.from_date = get_first_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] ) 
     self.to_date = get_last_date(params["hours_to_bill"], params["expenses_to_bill"], params["mileages_to_bill"] )
+    
     self.save!
   end
 
@@ -56,11 +61,11 @@ class Invoice < ActiveRecord::Base
   end
 
   def get_first_date(hours, expenses, mileages)
-    first_date = [Hour.first_date(hours), Expense.first_date(expenses), Mileage.first_date(mileages)].min
+    first_date = [Hour.first_date(hours), Expense.first_date(expenses), Mileage.first_date(mileages)].compact.min
   end
 
   def get_last_date(hours, expenses, mileages)
-    last_date = [Hour.last_date(hours), Expense.last_date(expenses), Mileage.last_date(mileages)].max
+    last_date = [Hour.last_date(hours), Expense.last_date(expenses), Mileage.last_date(mileages)].compact.max
   end
   
   def extend_hours(hours)
@@ -103,18 +108,19 @@ class Invoice < ActiveRecord::Base
                             :what => ex.description,
                             :who => ex.user.name}
     end
-    summary_expenses = detailed_expenses
+    summary_expenses = condense_expenses(detailed_expenses)
     return {:detailed => detailed_expenses,
             :summary => summary_expenses}
   end
   
   def condense_expenses(data)
     summary_array = []
+
     summary = data.group_by { |item| item[:who] }.values
     summary.each do |arr|
       who = arr.first[:who]
       total_sum = arr.inject(0) {|sum, hash| sum + hash[:total] }
-      summary_array << { :who => who, :total => total_sum }
+      summary_array << { :count => arr.count, :who => who, :total => total_sum }
     end
     return summary_array
   end

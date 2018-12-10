@@ -2,6 +2,7 @@
 *.DS_Store
 *.swo
 *.swp
+/.byebug_history
 /.bundle
 /.env
 /.foreman
