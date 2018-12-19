@@ -1,0 +1,21 @@
+%li.tab-header-and-content
+  %a.tab-link{href: "#expenses"}= t("entries.index.expenses")
+  #expenses-tab.tab-reports-content
+    %table.entries
+      %tr
+        %th
+          %input{ type: "checkbox", "data-project-id" => @project.id, "data-entry_type" => "expenses", class: "bill-project" }
+          = t("billables.table.billed")
+        %th= t("billables.table.date")
+        %th= t("billables.table.description")
+        %th= t("billables.table.value")
+        %th= t("billables.table.user")
+      - billable_expenses_of(@project).each do |expense|
+        %tr.info-row
+          %td= billable_entry_checkbox(expense, "expenses")
+          %td= I18n.l (expense.date)
+          %td= expense.description
+          %td.center= expense.value
+          %td
+            = link_to expense.user do
+              = expense.user.full_name

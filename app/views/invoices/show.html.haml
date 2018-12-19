@@ -1,0 +1,14 @@
+- content_for :page_title, @invoice.name
+
+.outer
+  .container
+    - localized_cache @invoice do
+      .invoices
+        %header
+          = link_to t("invoice.edit"), edit_invoice_path(@invoice)
+          %h1
+            = @invoice.name
+          %h4
+            = @invoice.dates
+          %p
+            = @invoice.payload

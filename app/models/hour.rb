@@ -41,7 +41,15 @@ class Hour < Entry
   def self.query(params, includes = nil)
     EntryQuery.new(self.includes(includes).by_date, params, "hours").filter
   end
+  
+  def self.last_date(ids)
+    where(id: ids).maximum(:date)
+  end
 
+  def self.first_date(ids)
+    where(id: ids).minimum(:date)
+  end
+  
   def value=(value)
     entry = value
     

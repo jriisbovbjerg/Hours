@@ -179,7 +179,7 @@ Category.create([{ name: "Administration"},
 
 puts "Categories done"
 
-first = Date.ordinal(2017, 120)
+first = Date.ordinal(2018, 200)
 last = Date.ordinal(2018, 255)
 
 admprojects = Project.where(administrative: true)
@@ -192,13 +192,13 @@ users = User.all
 first.upto(last) do |date|
   unless date.saturday? || date.sunday?
     users.each do |user|
-      if rand(11) == 1
+      proj = Assignment.by_user(user).at_date(date).includes(:project).map(&:project).first
+      if proj.blank? || rand(11) == 1 
         type = 1
         proj = admprojects.sample
         cat = Category.first
       else
         type = 0
-        proj = Assignment.by_user(user).includes(:project).map(&:project).flatten.sample
         cat = Category.all[1..-1].sample
       end
       Hour.create({ project: proj, user: user, value: 6.2 + (rand(100)/50.0), date: date, billed: false, description: "ref #{rand(100)/49.0}", category: cat})

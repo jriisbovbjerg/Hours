@@ -1,0 +1,23 @@
+- content_for :page_title, @project.name
+
+- localized_cache [@project] do
+  .outer
+    %div.marked_entries
+      %p#amount_marked_entries
+        =t("billables.select_marked")
+      %button{id: "submit-billable-entries", disabled: true}
+        =t("billables.buttons.bill_selected")
+    .billables
+      .container
+        =link_to t("billables.show.back"), billables_path
+        %h1= t("billables.billable_entries")
+        = form_tag("/billables", method: "post", remote: true, id: "billable-entries-form", autocomplete: "off") do
+          %header
+            =hidden_field_tag :project_id , @project.id
+            %h1= link_to @project.long_name, project_path(@project)
+            .reports-tabs-container
+              %ul.accordion-tabs
+                = render partial: "hours_entries", locals: { project: @project }
+                = render partial: "mileages_entries", locals: { project: @project }
+                = render partial: "expenses_entries", locals: { project: @project }
+          %button#submit-billable-entries-test= t("billables.buttons.bill_selected")

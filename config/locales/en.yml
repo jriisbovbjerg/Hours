@@ -329,6 +329,8 @@ en:
       new: New Contact
     entries:
       index: All Entries
+    invoices:
+      index: Invoices
     projects:
       index: Projects
       new: New Project

@@ -33,6 +33,18 @@ class Project < ActiveRecord::Base
       EntryStats.new(hours, category).percentage_for_subject
     end.reverse
   end
+  
+  def dates
+    "From: #{valid_from_fmt} - To: #{valid_to_fmt}"
+  end
+
+  def valid_from_fmt
+    valid_from.to_formatted_s(:rfc822)
+  end
+
+  def valid_to_fmt
+    valid_to.to_formatted_s(:rfc822)
+  end
 
   def active?(date: Date.today())
     valid_from <= date && valid_to >= date
@@ -42,12 +54,30 @@ class Project < ActiveRecord::Base
     name
   end
 
+  def long_name
+    "#{name}  [#{client.name}]"
+  end
+
   def budget_status
     budget - hours.sum(:value) if budget
   end
 
   def has_billable_entries?
-    hours.exists?(billed: false) || mileages.exists?(billed: false)
+    [hours.exists?(billed: false),
+    mileages.exists?(billed: false),
+    expenses.exists?(billed: false)].any?
+  end
+
+  def unbilled_hours
+    hours.where(billed: false).sum(:value)
+  end
+  
+  def unbilled_mileages
+    mileages.where(billed:false).sum(:value)
+  end
+
+  def unbilled_expenses
+    expenses.where(billed:false).sum(:value)
   end
 
   private

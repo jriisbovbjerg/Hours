@@ -21,6 +21,7 @@ module ApplicationHelper
     presenter
   end
 
+
   def contact_title(contact)
     html = ""
     html << content_tag(:span, "", class: "color",
@@ -98,6 +99,16 @@ module ApplicationHelper
     Hour.includes(:category, :user, :project).
       where(project: project, billed: false)
   end
+  
+  def billable_expenses_of(project)
+    Expense.includes(:user, :project).
+      where(project: project, billed: false)
+  end
+
+  def billable_mileages_of(project)
+    Mileage.includes(:user, :project).
+      where(project: project, billed: false)
+  end
 
   def users_projects(user)
     projects = Assignment.by_user(user).includes(:project).map(&:project).flatten
@@ -113,11 +124,12 @@ module ApplicationHelper
     currencies
   end
 
-  def show_check_icon(boolean_value)
+    def show_check_icon(boolean_value)
     if boolean_value then
       "✓"
     else
-      ""
+      "-"
     end
   end
+
 end

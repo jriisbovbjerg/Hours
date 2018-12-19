@@ -1,0 +1,70 @@
+%table.entries
+  %tr
+    %th
+      %small Project Name
+    %th
+      %h2= project.name
+    %th
+    %th
+      %tr.info-row
+        %td
+          %small Client:
+        %td
+          - if project.client
+            = link_to client_path(project.client), class: "clients-header" do
+              = client_title(project.client)
+        %td
+          %small Dates:
+        %td
+          %p= project.dates
+      %tr.info-row
+        %td
+          %small Budget:
+        %td
+          - if project.budget
+            .project-budget
+            = t(:budget_html, budget_left: project.budget_status, budget: project.budget)
+          - else
+            %p No budget defined
+        %td
+          %small Description:
+        %td
+          %p= markdown(project.description) if project.description
+      %tr.info-row
+        %td
+          %small Billable:
+        %td
+          %p= show_check_icon(project.billable)
+        %td
+          %small Administrative:
+        %td
+          %p= show_check_icon(project.administrative)
+      %tr.info-row
+        %td
+          %small Archived:
+        %td
+          %p= show_check_icon(project.archived)
+        %td
+          %small Contact:
+        %td      
+          - if project.contact
+            = link_to contact_path(project.contact), class: "clients-header" do
+              = contact_title(project.contact)
+      %tr.info-row
+        %td
+          %small Currency:
+        %td
+          %p= project.currency
+        %td
+          %small Period:
+        %td      
+          %p= project.period
+      %tr.info-row
+        %td
+          %small Invoice email:
+        %td
+          %p= project.invoice_email
+        %td
+          %small Reference Number (PO):
+        %td      
+          %p= project.reference_number

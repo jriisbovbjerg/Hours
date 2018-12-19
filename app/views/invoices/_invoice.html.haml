@@ -1,0 +1,10 @@
+%tr.info-row
+  %td
+    12334
+  %td
+    %p= invoice.name
+  %td
+    %p= invoice.nice_dates
+  %td
+    (#{link_to t("invoice.edit"), edit_invoice_path(invoice)})
+    (#{link_to t("invoice.pdf"), invoice_path(invoice, format: "pdf")})

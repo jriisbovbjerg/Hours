@@ -1,7 +1,6 @@
 class ContactsController < ApplicationController
   def show
     @projects = resource.projects.by_last_updated.page(params[:page]).per(3)
-    @time_series = time_series_for(resource)
   end
 
   def index

@@ -1,0 +1,15 @@
+.outer
+  .container
+    %h1= title
+    %hr/
+    %table.entries
+      %tr
+        %th
+          Invoice #
+        %th
+          Client - Project Name
+        %th
+          From-To dates
+        %th
+          Actions
+        = render partial: "invoice", collection: @invoices

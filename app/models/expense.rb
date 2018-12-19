@@ -28,6 +28,14 @@ class Expense < Entry
     end
   end
 
+  def self.last_date(ids)
+    where(id: ids).maximum(:date)
+  end
+
+  def self.first_date(ids)
+    where(id: ids).minimum(:date)
+  end
+
   def receipt_url
     receipt.url(:original)
   end
